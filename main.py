@@ -103,7 +103,7 @@ if(st.button("Start Screening")):
                             per=(((high_list[-1]-low_list[-1])/high_list[-1])*100)
                             if ((0<int(round(per,1)))or(int(round(per,1))<=6)):
                                 set1 = { 'x': d.Date, 'open': d.Open, 'close': d.Close, 'high': d.High, 'low': d.Low, 'type': 'candlestick',}
-                                set2 = { 'x': d.Date, 'y': ma50, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods'}
+                                set2 = { 'x': d.Date, 'y': ma50, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                                 set3 = { 'x': d.Date, 'y': bwl_up, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                                 set4 = { 'x': d.Date, 'y': bwl_dw, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
     
@@ -135,7 +135,7 @@ if(st.button("Start Screening")):
                                     
                                 
                                 set1 = { 'x': d.Date, 'open': d.Open, 'close': d.Close, 'high': d.High, 'low': d.Low, 'type': 'candlestick',}
-                                set2 = { 'x': d.Date, 'y': ma50, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods'}
+                                set2 = { 'x': d.Date, 'y': ma50, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                                 set3 = { 'x': d.Date, 'y': bwl_up, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                                 set4 = { 'x': d.Date, 'y': bwl_dw, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
     
