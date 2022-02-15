@@ -287,6 +287,7 @@ if(st.button("Start Screening")):
         my_bar = st.progress(0)
         j=0
         for i in final_list:
+            j+=1
             s="{0}.NS".format(i)
             y = pdr.get_data_yahoo(s,period="max",interval='1mo')
             my_bar.progress(j + 1)
