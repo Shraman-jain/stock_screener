@@ -91,8 +91,8 @@ if(st.button("Start Screening")):
             bwl_dw_list = list(bwl_dw)
             close_list = list(d.Close)
             open_list = list(d.Open)
-            low_list = list(d.High)
-            high_list = list(d.Low)
+            low_list = list(d.Low)
+            high_list = list(d.High)
     
             check=ma_list[-1]-bwl_dw_list[-1]
             
@@ -178,8 +178,8 @@ if(st.button("Start Screening")):
             bwl_dw_list = list(bwl_dw)
             close_list = list(d.Close)
             open_list = list(d.Open)
-            low_list = list(d.High)
-            high_list = list(d.Low)
+            low_list = list(d.Low)
+            high_list = list(d.High)
     
             if ma_list[-1]>ma_list[-3]:
                 if (((0.0001 < ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])) and  ( ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])<0.03)) and ((0.0001< float((close_list[-1]-ma_list[-1])/close_list[-1])) and (float((close_list[-1]-ma_list[-1])/close_list[-1])<0.03))):
@@ -246,8 +246,8 @@ if(st.button("Start Screening")):
             bwl_dw_list = list(bwl_dw)
             close_list = list(d.Close)
             open_list = list(d.Open)
-            low_list = list(d.High)
-            high_list = list(d.Low)
+            low_list = list(d.Low)
+            high_list = list(d.High)
     
             if open_list[-2]>close_list[-2] and bwl_dw_list[-2]>close_list[-2]:
                 if close_list[-1]>open_list[-1] and close_list[-1]>bwl_dw_list[-1]:
