@@ -79,7 +79,7 @@ else:
 if(st.button("Start Screening")):
     if strgy == "ABC":
         my_bar = st.progress(0)
-        for i in range(list(final_list)):
+        for i in range(len(list(final_list))):
             sym="{0}.NS".format(final_list[i])
             d = pdr.get_data_yahoo(sym,start,end,interval='1d')
             d = d.reset_index()
@@ -167,7 +167,7 @@ if(st.button("Start Screening")):
     
     elif strgy == "44MA":
         my_bar = st.progress(0)
-        for i in range(list(final_list)):
+        for i in range(len(list(final_list))):
             sym="{0}.NS".format(final_list[i])
             d = pdr.get_data_yahoo(sym,start,end,interval='1d')
             d = d.reset_index()
@@ -238,7 +238,7 @@ if(st.button("Start Screening")):
 
     elif strgy == "BOLLINGER BAND":
         my_bar = st.progress(0)
-        for i in range(list(final_list)):
+        for i in range(len(list(final_list))):
             sym="{0}.NS".format(final_list[i])
             my_bar.progress(i)
             d = pdr.get_data_yahoo(sym,start,end,interval='1d')
@@ -279,7 +279,7 @@ if(st.button("Start Screening")):
         
     elif strgy == "ATH":
         my_bar = st.progress(0)
-        for i in range(list(final_list)):
+        for i in range(len(list(final_list))):
             s="{0}.NS".format(final_list[i])
             my_bar.progress(i)
             y = pdr.get_data_yahoo(s,period="max",interval='1mo')
