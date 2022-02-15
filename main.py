@@ -79,13 +79,11 @@ else:
 if(st.button("Start Screening")):
     if strgy == "ABC":
         my_bar = st.progress(0)
-        j=0
-        for i in final_list:
-            sym="{0}.NS".format(i)
+        for i in range(list(final_list)):
+            sym="{0}.NS".format(final_list[i])
             d = pdr.get_data_yahoo(sym,start,end,interval='1d')
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
-            my_bar.progress(j + 1)
             ma50 = get_sma(d.Close,50)
             bwl_up,bwl_dw=Boll_band(d.Close)
             
@@ -169,13 +167,11 @@ if(st.button("Start Screening")):
     
     elif strgy == "44MA":
         my_bar = st.progress(0)
-        j=0
-        for i in final_list:
-            sym="{0}.NS".format(i)
+        for i in range(list(final_list)):
+            sym="{0}.NS".format(final_list[i])
             d = pdr.get_data_yahoo(sym,start,end,interval='1d')
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
-            my_bar.progress(j + 1)
             ma44 = get_sma(d.Close,44)
             bwl_up,bwl_dw=Boll_band(d.Close)
 
@@ -242,15 +238,13 @@ if(st.button("Start Screening")):
 
     elif strgy == "BOLLINGER BAND":
         my_bar = st.progress(0)
-        j=0
-        for i in final_list:
-            j+=1
-            sym="{0}.NS".format(i)
+        for i in range(list(final_list)):
+            sym="{0}.NS".format(final_list[i])
+            my_bar.progress(i)
             d = pdr.get_data_yahoo(sym,start,end,interval='1d')
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
-            my_bar.progress(j + 1)
-
+            
             bwl_up,bwl_dw=Boll_band(d.Close)
             bwl_up_list = list(bwl_up)
             bwl_dw_list = list(bwl_dw)
@@ -285,18 +279,16 @@ if(st.button("Start Screening")):
         
     elif strgy == "ATH":
         my_bar = st.progress(0)
-        j=0
-        for i in final_list:
-            j+=1
-            s="{0}.NS".format(i)
+        for i in range(list(final_list)):
+            s="{0}.NS".format(final_list[i])
+            my_bar.progress(i)
             y = pdr.get_data_yahoo(s,period="max",interval='1mo')
-            my_bar.progress(j + 1)
             try:
                 y = y.reset_index()
                 hgh=max(list(y['High']))
                 per_close = (hgh-list(y['Close'])[-1])/(list(y['Close'])[-1]) 
                 if (hgh == list(y['Close'])[-1]) or (0<per_close and per_close<0.05): 
-                    st.write('[{0}](https://finance.yahoo.com/chart/{0}.NS#eyJpbnRlcnZhbCI6Im1vbnRoIiwicGVyaW9kaWNpdHkiOjEsImNhbmRsZVdpZHRoIjo1LjQzLCJmbGlwcGVkIjpmYWxzZSwidm9sdW1lVW5kZXJsYXkiOnRydWUsImFkaiI6dHJ1ZSwiY3Jvc3NoYWlyIjp0cnVlLCJjaGFydFR5cGUiOiJjYW5kbGUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkhJTkRBTENPLk5TIiwiY2hhcnROYW1lIjoiY2hhcnQiLCJpbmRleCI6MCwieUF4aXMiOnsibmFtZSI6ImNoYXJ0IiwicG9zaXRpb24iOm51bGx9LCJ5YXhpc0xIUyI6W10sInlheGlzUkhTIjpbImNoYXJ0Iiwi4oCMdm9sIHVuZHLigIwiXX19LCJzZXRTcGFuIjpudWxsLCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwic3ltYm9scyI6W3sic3ltYm9sIjoiSElOREFMQ08uTlMiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiSElOREFMQ08uTlMiLCJxdW90ZVR5cGUiOiJFUVVJVFkiLCJleGNoYW5nZVRpbWVab25lIjoiQXNpYS9Lb2xrYXRhIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6Im1vbnRoIiwic2V0U3BhbiI6bnVsbH1dLCJjdXN0b21SYW5nZSI6bnVsbCwic3R1ZGllcyI6eyLigIx2b2wgdW5kcuKAjCI6eyJ0eXBlIjoidm9sIHVuZHIiLCJpbnB1dHMiOnsiaWQiOiLigIx2b2wgdW5kcuKAjCIsImRpc3BsYXkiOiLigIx2b2wgdW5kcuKAjCJ9LCJvdXRwdXRzIjp7IlVwIFZvbHVtZSI6IiMwMGIwNjEiLCJEb3duIFZvbHVtZSI6IiNmZjMzM2EifSwicGFuZWwiOiJjaGFydCIsInBhcmFtZXRlcnMiOnsid2lkdGhGYWN0b3IiOjAuNDUsImNoYXJ0TmFtZSI6ImNoYXJ0IiwicGFuZWxOYW1lIjoiY2hhcnQifX0sIuKAjG1h4oCMICg1MixDLG1hLDApIjp7InR5cGUiOiJtYSIsImlucHV0cyI6eyJQZXJpb2QiOiI1MiIsIkZpZWxkIjoiQ2xvc2UiLCJUeXBlIjoic2ltcGxlIiwiT2Zmc2V0IjowLCJpZCI6IuKAjG1h4oCMICg1MixDLG1hLDApIiwiZGlzcGxheSI6IuKAjG1h4oCMICg1MixDLG1hLDApIn0sIm91dHB1dHMiOnsiTUEiOiIjYWQ2ZWZmIn0sInBhbmVsIjoiY2hhcnQiLCJwYXJhbWV0ZXJzIjp7ImNoYXJ0TmFtZSI6ImNoYXJ0IiwicGFuZWxOYW1lIjoiY2hhcnQifX19LCJyYW5nZSI6bnVsbH0-)'.format(i))
+                    st.write('[{0}](https://finance.yahoo.com/chart/{0}.NS#eyJpbnRlcnZhbCI6Im1vbnRoIiwicGVyaW9kaWNpdHkiOjEsImNhbmRsZVdpZHRoIjo1LjQzLCJmbGlwcGVkIjpmYWxzZSwidm9sdW1lVW5kZXJsYXkiOnRydWUsImFkaiI6dHJ1ZSwiY3Jvc3NoYWlyIjp0cnVlLCJjaGFydFR5cGUiOiJjYW5kbGUiLCJleHRlbmRlZCI6ZmFsc2UsIm1hcmtldFNlc3Npb25zIjp7fSwiYWdncmVnYXRpb25UeXBlIjoib2hsYyIsImNoYXJ0U2NhbGUiOiJsaW5lYXIiLCJwYW5lbHMiOnsiY2hhcnQiOnsicGVyY2VudCI6MSwiZGlzcGxheSI6IkhJTkRBTENPLk5TIiwiY2hhcnROYW1lIjoiY2hhcnQiLCJpbmRleCI6MCwieUF4aXMiOnsibmFtZSI6ImNoYXJ0IiwicG9zaXRpb24iOm51bGx9LCJ5YXhpc0xIUyI6W10sInlheGlzUkhTIjpbImNoYXJ0Iiwi4oCMdm9sIHVuZHLigIwiXX19LCJzZXRTcGFuIjpudWxsLCJsaW5lV2lkdGgiOjIsInN0cmlwZWRCYWNrZ3JvdW5kIjp0cnVlLCJldmVudHMiOnRydWUsImNvbG9yIjoiIzAwODFmMiIsInN0cmlwZWRCYWNrZ3JvdWQiOnRydWUsImV2ZW50TWFwIjp7ImNvcnBvcmF0ZSI6eyJkaXZzIjp0cnVlLCJzcGxpdHMiOnRydWV9LCJzaWdEZXYiOnt9fSwic3ltYm9scyI6W3sic3ltYm9sIjoiSElOREFMQ08uTlMiLCJzeW1ib2xPYmplY3QiOnsic3ltYm9sIjoiSElOREFMQ08uTlMiLCJxdW90ZVR5cGUiOiJFUVVJVFkiLCJleGNoYW5nZVRpbWVab25lIjoiQXNpYS9Lb2xrYXRhIn0sInBlcmlvZGljaXR5IjoxLCJpbnRlcnZhbCI6Im1vbnRoIiwic2V0U3BhbiI6bnVsbH1dLCJjdXN0b21SYW5nZSI6bnVsbCwic3R1ZGllcyI6eyLigIx2b2wgdW5kcuKAjCI6eyJ0eXBlIjoidm9sIHVuZHIiLCJpbnB1dHMiOnsiaWQiOiLigIx2b2wgdW5kcuKAjCIsImRpc3BsYXkiOiLigIx2b2wgdW5kcuKAjCJ9LCJvdXRwdXRzIjp7IlVwIFZvbHVtZSI6IiMwMGIwNjEiLCJEb3duIFZvbHVtZSI6IiNmZjMzM2EifSwicGFuZWwiOiJjaGFydCIsInBhcmFtZXRlcnMiOnsid2lkdGhGYWN0b3IiOjAuNDUsImNoYXJ0TmFtZSI6ImNoYXJ0IiwicGFuZWxOYW1lIjoiY2hhcnQifX0sIuKAjG1h4oCMICg1MixDLG1hLDApIjp7InR5cGUiOiJtYSIsImlucHV0cyI6eyJQZXJpb2QiOiI1MiIsIkZpZWxkIjoiQ2xvc2UiLCJUeXBlIjoic2ltcGxlIiwiT2Zmc2V0IjowLCJpZCI6IuKAjG1h4oCMICg1MixDLG1hLDApIiwiZGlzcGxheSI6IuKAjG1h4oCMICg1MixDLG1hLDApIn0sIm91dHB1dHMiOnsiTUEiOiIjYWQ2ZWZmIn0sInBhbmVsIjoiY2hhcnQiLCJwYXJhbWV0ZXJzIjp7ImNoYXJ0TmFtZSI6ImNoYXJ0IiwicGFuZWxOYW1lIjoiY2hhcnQifX19LCJyYW5nZSI6bnVsbH0-)'.format(fianl)list[i]))
             except:
                 pass
         st.balloons()    
