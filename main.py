@@ -170,6 +170,7 @@ if(st.button("Start Screening")):
                     pass
             else:
                 pass
+        my_bar.empty()
         st.balloons()    
         
     
