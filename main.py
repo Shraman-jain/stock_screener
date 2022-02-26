@@ -129,7 +129,7 @@ if(st.button("Start Screening")):
                                 fig = go.Figure(data=data)
                                 fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                                fig.update_layout(width=900,height=700) 
+                                fig.update_layout(width=1250,height=700) 
                                 st.plotly_chart(fig)
                         
                                 if low_list[-1]>low_list[-2]:
@@ -153,7 +153,7 @@ if(st.button("Start Screening")):
                                 fig = go.Figure(data=data)
                                 fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                                fig.update_layout(width=900,height=700) 
+                                fig.update_layout(width=1250,height=700) 
                                 st.plotly_chart(fig)
                                 if low_list[-1]>low_list[-2]:
                                     fin=low_list[-2]
@@ -174,7 +174,12 @@ if(st.button("Start Screening")):
         
     
     elif strgy == "44MA":
+        j=0
+        my_bar = st.progress(0)
         for i in final_list:
+            j+=1
+            percent_complete=j/len(final_list)
+            my_bar.progress(percent_complete)    
             sym="{0}.NS".format(i)
             d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
@@ -205,7 +210,7 @@ if(st.button("Start Screening")):
                             fig = go.Figure(data=data)
                             fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                            fig.update_layout(width=900,height=700) 
+                            fig.update_layout(width=1250,height=700) 
                             st.plotly_chart(fig)
                         
                             if low_list[-1]>low_list[-2]:
@@ -225,7 +230,7 @@ if(st.button("Start Screening")):
                             fig = go.Figure(data=data)
                             fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                            fig.update_layout(width=900,height=700) 
+                            fig.update_layout(width=1250,height=700) 
                             st.plotly_chart(fig)
                         
                             if low_list[-1]>low_list[-2]:
@@ -246,7 +251,12 @@ if(st.button("Start Screening")):
         
 
     elif strgy == "BOLLINGER BAND":
+        j=0
+        my_bar = st.progress(0)
         for i in final_list:
+            j+=1
+            percent_complete=j/len(final_list)
+            my_bar.progress(percent_complete)    
             sym="{0}.NS".format(i)
             d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
@@ -269,7 +279,7 @@ if(st.button("Start Screening")):
                     fig = go.Figure(data=data)
                     fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                    fig.update_layout(width=900,height=700) 
+                    fig.update_layout(width=1250,height=700) 
                     st.plotly_chart(fig)
                     if low_list[-1]>low_list[-2]:
                         fin=low_list[-2]
@@ -285,7 +295,12 @@ if(st.button("Start Screening")):
     
         
     elif strgy == "ATH":
+        j=0
+        my_bar = st.progress(0)
         for i in final_list:
+            j+=1
+            percent_complete=j/len(final_list)
+            my_bar.progress(percent_complete)    
             s="{0}.NS".format(i)
             try:
                 y = pdr.get_data_yahoo(s,period="max",interval='1mo')
@@ -299,7 +314,12 @@ if(st.button("Start Screening")):
         st.balloons()    
     
     elif strgy == "15 MIN BUY":
-        for i in large_list:
+        j=0
+        my_bar = st.progress(0)
+        for i in final_list:
+            j+=1
+            percent_complete=j/len(final_list)
+            my_bar.progress(percent_complete)    
             s="{0}.NS".format(i)
             y1 = pdr.get_data_yahoo(s,period="1mo",interval='15m')  
             y2 = pdr.get_data_yahoo(s,period="1d",interval='15m')
@@ -340,7 +360,9 @@ if(st.button("Start Screening")):
                                     " LOW: "+str(round(last_low,3))+
                                     " AS ON "+str(end.date())+" STRATEGY - ABC (GBC)")
                                 fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                                fig.update_layout(width=1250,height=700) 
                                 st.plotly_chart(fig)
+                                
                                 if last_low>last_low2:
                                     fin=last_low2
                                 else:
@@ -362,6 +384,8 @@ if(st.button("Start Screening")):
                                     " LOW: "+str(round(last_low,3))+
                                     " AS ON "+str(end.date())+" STRATEGY - ABC (Hammer)")
                             fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                            fig.update_layout(width=1250,height=700) 
+                            
                             st.plotly_chart(fig)
                             if last_low>last_low2:
                                 fin=last_low2
@@ -372,7 +396,12 @@ if(st.button("Start Screening")):
         st.balloons()    
 
     elif strgy == "15 MIN SELL":
-        for i in large_list:
+        j=0
+        my_bar = st.progress(0)
+        for i in final_list:
+            j+=1
+            percent_complete=j/len(final_list)
+            my_bar.progress(percent_complete)    
             s="{0}.NS".format(i)
             y1 = pdr.get_data_yahoo(s,period="1mo",interval='15m')  
             y2 = pdr.get_data_yahoo(s,period="1d",interval='15m')
@@ -417,6 +446,8 @@ if(st.button("Start Screening")):
                                     " LOW: "+str(round(last_low,3))+
                                     " AS ON "+str(end.date())+" STRATEGY - 15 MIN BUY (GBC)")
                         fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                        fig.update_layout(width=1250,height=700) 
+                        
                         st.plotly_chart(fig)
                         if last_low>last_low2:
                           fin=last_low2
@@ -437,6 +468,8 @@ if(st.button("Start Screening")):
                                     " LOW: "+str(round(last_low,3))+
                                     " AS ON "+str(end.date())+" STRATEGY - 15 MIN SELL  (GBC)")
                         fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                        fig.update_layout(width=1250,height=700) 
+                        
                         st.plotly_chart(fig)
                         if last_low>last_low2:
                             fin=last_low2
