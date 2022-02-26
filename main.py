@@ -175,7 +175,11 @@ if(st.button("Start Screening")):
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
             ma44 = get_sma(d.Close,44)
+            bwl_up,bwl_dw=Boll_band(d.Close)
+
             ma_list=list(ma44)
+            bwl_up_list = list(bwl_up)
+            bwl_dw_list = list(bwl_dw)
             close_list = list(d.Close)
             open_list = list(d.Open)
             low_list = list(d.Low)
