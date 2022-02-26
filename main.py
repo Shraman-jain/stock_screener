@@ -46,7 +46,7 @@ end = dt.datetime.now()
 
 st.title('STOCK SCREENER')
 
-strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY','15 MIN SELL'))
+strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND (DAILY)','ATH','15 MIN BUY','15 MIN SELL'))
 st.write("selected",strgy)
 sc_list = st.selectbox("SCRIPT LIST",('None','Nifty 500', 'Large Cap', 'Mid Cap','Small Cap'))
 st.write("selected",sc_list)
@@ -247,6 +247,7 @@ if(st.button("Start Screening")):
             else:
                 pass
         
+        my_bar.empty()
         st.balloons()    
     
         
@@ -292,6 +293,7 @@ if(st.button("Start Screening")):
                     pass
             else:
                 pass
+        my_bar.empty()
         st.balloons()    
     
         
@@ -312,6 +314,7 @@ if(st.button("Start Screening")):
                     st.write('[{0}](https://in.tradingview.com/chart/YV59lPqR/?symbol=NSE%3A{0})'.format(i))
             except:
                 pass
+        my_bar.empty()
         st.balloons()    
     
     elif strgy == "15 MIN BUY":
@@ -394,6 +397,8 @@ if(st.button("Start Screening")):
                                 fin=last_low
                             risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)         
                             st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+        
+        my_bar.empty()
         st.balloons()    
 
     elif strgy == "15 MIN SELL":
@@ -478,6 +483,7 @@ if(st.button("Start Screening")):
                             fin=last_low
                         risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)         
                         st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+        my_bar.empty()
         st.balloons()    
     else:
         st.text("Select some strategy ")  
