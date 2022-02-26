@@ -171,27 +171,25 @@ if(st.button("Start Screening")):
     elif strgy == "44MA":
         for i in final_list:
             sym="{0}.NS".format(i)
-            d = pdr.get_data_yahoo(sym,start,end,interval='1d')
+            d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
             ma44 = get_sma(d.Close,44)
-            bwl_up,bwl_dw=Boll_band(d.Close)
-
             ma_list=list(ma44)
-            bwl_up_list = list(bwl_up)
-            bwl_dw_list = list(bwl_dw)
             close_list = list(d.Close)
             open_list = list(d.Open)
             low_list = list(d.Low)
             high_list = list(d.High)
+            date_list = list(d.Date)
+
     
             if ma_list[-1]>ma_list[-3]:
                 if (((0.0001 < ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])) and  ( ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])<0.03)) and ((0.0001< float((close_list[-1]-ma_list[-1])/close_list[-1])) and (float((close_list[-1]-ma_list[-1])/close_list[-1])<0.03))):
                     if close_list[-1]>open_list[-1]:
                         per=(((high_list[-1]-low_list[-1])/high_list[-1])*100)
                         if ((0<int(round(per,1)))or(int(round(per,1))<=6)):
-                            set1 = { 'x': d.Date, 'open': d.Open, 'close': d.Close, 'high': d.High, 'low': d.Low, 'type': 'candlestick',}
-                            set2 = { 'x': d.Date, 'y': ma44, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
+                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick',}
+                            set2 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
                             
                             data = [set1, set2]
     
@@ -210,8 +208,8 @@ if(st.button("Start Screening")):
                         
                     elif ((((0<=high_list[-1]-close_list[-1])and(1>=high_list[-1]-close_list[-1]))and((close_list[-1]-open_list[-1])*2 <=(open_list[-1]-low_list[-1]))) or 
                             (((0<=high_list[-1]-open_list[-1])and(1>=high_list[-1]-open_list[-1]))and((open_list[-1]-close_list[-1])*2 <=(close_list[-1]-low_list[-1])))):
-                            set1 = { 'x': d.Date, 'open': d.Open, 'close': d.Close, 'high': d.High, 'low': d.Low, 'type': 'candlestick',}
-                            set2 = { 'x': d.Date, 'y': ma44, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
+                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick',}
+                            set2 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
                             
                             data = [set1, set2]
     
@@ -241,7 +239,7 @@ if(st.button("Start Screening")):
     elif strgy == "BOLLINGER BAND":
         for i in final_list:
             sym="{0}.NS".format(i)
-            d = pdr.get_data_yahoo(sym,start,end,interval='1d')
+            d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
             
@@ -255,9 +253,9 @@ if(st.button("Start Screening")):
     
             if open_list[-2]>close_list[-2] and bwl_dw_list[-2]>close_list[-2]:
                 if close_list[-1]>open_list[-1] and close_list[-1]>bwl_dw_list[-1]:
-                    set1 = { 'x': d.Date, 'open': d.Open, 'close': d.Close, 'high': d.High, 'low': d.Low, 'type': 'candlestick',}
-                    set2 = { 'x': d.Date, 'y': bwl_up, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
-                    set3 = { 'x': d.Date, 'y': bwl_dw, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
+                    set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick',}
+                    set2 = { 'x': date_list[-100:], 'y': bwl_up_list[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
+                    set3 = { 'x': date_list[-100:], 'y': bwl_dw_list[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
                     data = [set1, set2,set3]
                     fig = go.Figure(data=data)
                     fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
