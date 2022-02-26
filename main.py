@@ -114,7 +114,7 @@ if(st.button("Start Screening")):
                         if close_list[-1]>open_list[-1]:
                             per=(((high_list[-1]-low_list[-1])/high_list[-1])*100)
                             if ((0<int(round(per,1)))or(int(round(per,1))<=6)):
-                                set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick',}
+                                set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
                                 set2 = { 'x': date_list[-100:], 'y': ma50[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                                 set3 = { 'x': date_list[-100:], 'y': bwl_up[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                                 set4 = { 'x': date_list[-100:], 'y': bwl_dw[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
@@ -138,7 +138,7 @@ if(st.button("Start Screening")):
                         elif ((((close_list[-1]==high_list[-1])or(close_list[-1]>=high_list[-1]-2))and (open_list[-1]>=(2*low_list[-1]))) 
                             or (((open_list[-1]==high_list[-1])or(open_list[-1]>=high_list[-1]-2)) and (close_list[-1]>=(2*low_list[-1])))):
                                 
-                                set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick',}
+                                set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
                                 set2 = { 'x': date_list[-100:], 'y': ma50[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                                 set3 = { 'x': date_list[-100:], 'y': bwl_up[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                                 set4 = { 'x': date_list[-100:], 'y': bwl_dw[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
@@ -192,7 +192,7 @@ if(st.button("Start Screening")):
                     if close_list[-1]>open_list[-1]:
                         per=(((high_list[-1]-low_list[-1])/high_list[-1])*100)
                         if ((0<int(round(per,1)))or(int(round(per,1))<=6)):
-                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick',}
+                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
                             set2 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
                             
                             data = [set1, set2]
@@ -212,7 +212,7 @@ if(st.button("Start Screening")):
                         
                     elif ((((0<=high_list[-1]-close_list[-1])and(1>=high_list[-1]-close_list[-1]))and((close_list[-1]-open_list[-1])*2 <=(open_list[-1]-low_list[-1]))) or 
                             (((0<=high_list[-1]-open_list[-1])and(1>=high_list[-1]-open_list[-1]))and((open_list[-1]-close_list[-1])*2 <=(close_list[-1]-low_list[-1])))):
-                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick',}
+                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
                             set2 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
                             
                             data = [set1, set2]
@@ -257,7 +257,7 @@ if(st.button("Start Screening")):
     
             if open_list[-2]>close_list[-2] and bwl_dw_list[-2]>close_list[-2]:
                 if close_list[-1]>open_list[-1] and close_list[-1]>bwl_dw_list[-1]:
-                    set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick',}
+                    set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
                     set2 = { 'x': date_list[-100:], 'y': bwl_up_list[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                     set3 = { 'x': date_list[-100:], 'y': bwl_dw_list[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
                     data = [set1, set2,set3]
@@ -324,7 +324,7 @@ if(st.button("Start Screening")):
                         if last_open<last_close:
                             per=abs((last_close-last_open)/last_open)
                             if ((0<per)or (per<=6)):  
-                                set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick',}
+                                set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
                                 set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                                 set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                                 set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
@@ -346,7 +346,7 @@ if(st.button("Start Screening")):
                             
             
                         elif ((((last_high==last_close)or((check1>=0)and(check1<=0.005)))and (last_low>=(2*last_open))) or (((last_open==last_high)or((check2>=0)and(check2<=0.005))) and (last_low>=(2*last_close)))):
-                            set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick',}
+                            set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
                             set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                             set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                             set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
@@ -401,7 +401,7 @@ if(st.button("Start Screening")):
                       per=abs((last_open-last_close)/last_close)
                       #print("yoo2",per,i)
                       if ((0<per)or(per<=6)):  
-                        set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick',}
+                        set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
                         set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                         set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                         set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
@@ -421,7 +421,7 @@ if(st.button("Start Screening")):
                         st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
                         #break
                     elif ((((last_open==last_low)or((check1>=0)and(check1<=0.005)))and (last_high>=(2*last_close))) or (((last_close==last_low)or((check2>=0)and(check2<=0.005))) and (last_high>=(2*last_open)))):
-                        set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick',}
+                        set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
                         set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                         set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
                         set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
