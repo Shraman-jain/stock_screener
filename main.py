@@ -200,7 +200,7 @@ if(st.button("Start Screening")):
                             fig = go.Figure(data=data)
                             fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                            fig.update_layout(width=1100,height=700) 
+                            fig.update_layout(width=1250,height=700) 
                             st.plotly_chart(fig)
                         
                             if low_list[-1]>low_list[-2]:
@@ -220,7 +220,7 @@ if(st.button("Start Screening")):
                             fig = go.Figure(data=data)
                             fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                            fig.update_layout(width=900,height=700) 
+                            fig.update_layout(width=1250,height=700) 
                             st.plotly_chart(fig)
                         
                             if low_list[-1]>low_list[-2]:
