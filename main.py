@@ -100,20 +100,20 @@ if(st.button("Start Screening")):
             d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
-            ma50 = get_sma(d.Close,50)
-            bwl_up,bwl_dw=Boll_band(d.Close)
-            
-            ma_list=list(ma50)
-            bwl_up_list = list(bwl_up)
-            bwl_dw_list = list(bwl_dw)
-            close_list = list(d.Close)
-            open_list = list(d.Open)
-            low_list = list(d.Low)
-            high_list = list(d.High)
-            date_list = list(d.Date)
-            check=ma_list[-1]-bwl_dw_list[-1]
-            
             try:
+                ma50 = get_sma(d.Close,50)
+                bwl_up,bwl_dw=Boll_band(d.Close)
+                ma_list=list(ma50)
+                bwl_up_list = list(bwl_up)
+                bwl_dw_list = list(bwl_dw)
+                close_list = list(d.Close)
+                open_list = list(d.Open)
+                low_list = list(d.Low)
+                high_list = list(d.High)
+                date_list = list(d.Date)
+                check=ma_list[-1]-bwl_dw_list[-1]
+            
+            
                 if ma_list[-1]>ma_list[-3]:
                     if bwl_dw_list[-1]>ma_list[-1] or check<=12:
                         if (((0.0001 < ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])) and  ( ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])<0.03)) and ((0.0001< float((close_list[-1]-ma_list[-1])/close_list[-1])) and (float((close_list[-1]-ma_list[-1])/close_list[-1])<0.03))):
