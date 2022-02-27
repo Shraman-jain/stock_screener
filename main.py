@@ -175,68 +175,70 @@ if(st.button("Start Screening")):
             d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
-            ma44 = get_sma(d.Close,44)
-            bwl_up,bwl_dw=Boll_band(d.Close)
+            try:
+                ma44 = get_sma(d.Close,44)
+                bwl_up,bwl_dw=Boll_band(d.Close)
+                ma_list=list(ma44)
 
-            ma_list=list(ma44)
-            bwl_up_list = list(bwl_up)
-            bwl_dw_list = list(bwl_dw)
-            close_list = list(d.Close)
-            open_list = list(d.Open)
-            low_list = list(d.Low)
-            high_list = list(d.High)
-            date_list = list(d.Date)
+                bwl_up_list = list(bwl_up)
+                bwl_dw_list = list(bwl_dw)
+                close_list = list(d.Close)
+                open_list = list(d.Open)
+                low_list = list(d.Low)
+                high_list = list(d.High)
+                date_list = list(d.Date)
 
     
-            if ma_list[-1]>ma_list[-3]:
-                if (((0.0001 < ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])) and  ( ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])<0.03)) and ((0.0001< float((close_list[-1]-ma_list[-1])/close_list[-1])) and (float((close_list[-1]-ma_list[-1])/close_list[-1])<0.03))):
-                    if close_list[-1]>open_list[-1]:
-                        per=(((high_list[-1]-low_list[-1])/high_list[-1])*100)
-                        if ((0<int(round(per,1)))or(int(round(per,1))<=6)):
-                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
-                            set2 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
+                if ma_list[-1]>ma_list[-3]:
+                    if (((0.0001 < ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])) and  ( ((close_list[-1]-bwl_dw_list[-1])/close_list[-1])<0.03)) and ((0.0001< float((close_list[-1]-ma_list[-1])/close_list[-1])) and (float((close_list[-1]-ma_list[-1])/close_list[-1])<0.03))):
+                        if close_list[-1]>open_list[-1]:
+                            per=(((high_list[-1]-low_list[-1])/high_list[-1])*100)
+                            if ((0<int(round(per,1)))or(int(round(per,1))<=6)):
+                                set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
+                                set2 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
                             
-                            data = [set1, set2]
+                                data = [set1, set2]
     
-                            fig = go.Figure(data=data)
-                            fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
+                                fig = go.Figure(data=data)
+                                fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                            fig.update_layout(width=1250,height=700) 
-                            st.plotly_chart(fig)
+                                fig.update_layout(width=1250,height=700) 
+                                st.plotly_chart(fig)
                         
-                            if low_list[-1]>low_list[-2]:
-                                fin=low_list[-2]
-                            else:
-                                fin=low_list[-1]
-                            risk,ep,sl,nos,tg1,tg2=risk_ana(high_list[-1]+1,fin-1)          
-                            st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                if low_list[-1]>low_list[-2]:
+                                    fin=low_list[-2]
+                                else:
+                                    fin=low_list[-1]
+                                risk,ep,sl,nos,tg1,tg2=risk_ana(high_list[-1]+1,fin-1)          
+                                st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
                         
-                    elif ((((0<=high_list[-1]-close_list[-1])and(1>=high_list[-1]-close_list[-1]))and((close_list[-1]-open_list[-1])*2 <=(open_list[-1]-low_list[-1]))) or 
-                            (((0<=high_list[-1]-open_list[-1])and(1>=high_list[-1]-open_list[-1]))and((open_list[-1]-close_list[-1])*2 <=(close_list[-1]-low_list[-1])))):
-                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
-                            set2 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
+                        elif ((((0<=high_list[-1]-close_list[-1])and(1>=high_list[-1]-close_list[-1]))and((close_list[-1]-open_list[-1])*2 <=(open_list[-1]-low_list[-1]))) or 
+                                (((0<=high_list[-1]-open_list[-1])and(1>=high_list[-1]-open_list[-1]))and((open_list[-1]-close_list[-1])*2 <=(close_list[-1]-low_list[-1])))):
+                                set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
+                                set2 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
                             
-                            data = [set1, set2]
+                                data = [set1, set2]
     
-                            fig = go.Figure(data=data)
-                            fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
+                                fig = go.Figure(data=data)
+                                fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                            fig.update_layout(width=1250,height=700) 
-                            st.plotly_chart(fig)
+                                fig.update_layout(width=1250,height=700) 
+                                st.plotly_chart(fig)
                         
-                            if low_list[-1]>low_list[-2]:
-                                fin=low_list[-2]
-                            else:
-                                fin=low_list[-1]
-                            risk,ep,sl,nos,tg1,tg2=risk_ana(high_list[-1]+1,fin-1)          
-                            st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                if low_list[-1]>low_list[-2]:
+                                    fin=low_list[-2]
+                                else:
+                                    fin=low_list[-1]
+                                risk,ep,sl,nos,tg1,tg2=risk_ana(high_list[-1]+1,fin-1)          
+                                st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                        else:
+                            pass
                     else:
                         pass
                 else:
                     pass
-            else:
-                pass
-        
+            except:
+                continue        
         my_bar.empty()
         st.balloons()    
     
@@ -253,38 +255,40 @@ if(st.button("Start Screening")):
             d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
             d = d.drop(['Volume'],axis = 1)
-            
-            bwl_up,bwl_dw=Boll_band(d.Close)
-            bwl_up_list = list(bwl_up)
-            bwl_dw_list = list(bwl_dw)
-            close_list = list(d.Close)
-            open_list = list(d.Open)
-            low_list = list(d.Low)
-            high_list = list(d.High)
-            date_list = list(d.Date)
+            try:
+                bwl_up,bwl_dw=Boll_band(d.Close)
+                bwl_up_list = list(bwl_up)
+                bwl_dw_list = list(bwl_dw)
+                close_list = list(d.Close)
+                open_list = list(d.Open)
+                low_list = list(d.Low)
+                high_list = list(d.High)
+                date_list = list(d.Date)
             
     
-            if open_list[-2]>close_list[-2] and bwl_dw_list[-2]>close_list[-2]:
-                if close_list[-1]>open_list[-1] and close_list[-1]>bwl_dw_list[-1]:
-                    set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
-                    set2 = { 'x': date_list[-100:], 'y': bwl_up_list[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
-                    set3 = { 'x': date_list[-100:], 'y': bwl_dw_list[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
-                    data = [set1, set2,set3]
-                    fig = go.Figure(data=data)
-                    fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
+                if open_list[-2]>close_list[-2] and bwl_dw_list[-2]>close_list[-2]:
+                    if close_list[-1]>open_list[-1] and close_list[-1]>bwl_dw_list[-1]:
+                        set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
+                        set2 = { 'x': date_list[-100:], 'y': bwl_up_list[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
+                        set3 = { 'x': date_list[-100:], 'y': bwl_dw_list[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
+                        data = [set1, set2,set3]
+                        fig = go.Figure(data=data)
+                        fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                    fig.update_layout(width=1250,height=700) 
-                    st.plotly_chart(fig)
-                    if low_list[-1]>low_list[-2]:
-                        fin=low_list[-2]
+                        fig.update_layout(width=1250,height=700) 
+                        st.plotly_chart(fig)
+                        if low_list[-1]>low_list[-2]:
+                            fin=low_list[-2]
+                        else:
+                            fin=low_list[-1]
+                        risk,ep,sl,nos,tg1=risk_ana(high_list[-1]+1,fin-1,"BB")          
+                        st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:03 -- "+str(tg1))
                     else:
-                        fin=low_list[-1]
-                    risk,ep,sl,nos,tg1=risk_ana(high_list[-1]+1,fin-1,"BB")          
-                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:03 -- "+str(tg1))
+                        pass
                 else:
                     pass
-            else:
-                pass
+            except:
+                continue
         my_bar.empty()
         st.balloons()    
     
@@ -317,34 +321,58 @@ if(st.button("Start Screening")):
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
             s="{0}.NS".format(i)
-            y1 = pdr.get_data_yahoo(s,period="1mo",interval='15m')  
-            y2 = pdr.get_data_yahoo(s,period="1d",interval='15m')
-            ma50=get_sma(y1.Close,50)
-            y1 = y1.reset_index()
-            y2 = y2.reset_index()
-            td_len = int(y2.shape[0])
-            bwl_up,bwl_dw=Boll_band(y1.Close)
-            last_bwl_dw=list(bwl_dw)[-td_len+1:]
-            last_bwl_up=list(bwl_up)[-td_len+1:]
-            last_close=list(y2.Close)[-2]
-            last_open=list(y2.Open)[-2]
-            last_high=list(y2.High)[-2]
-            last_low=list(y2.Low)[-2]
-            last_low2=list(y2.Low)[-3]
-            date_list=timelist[:td_len+1]
-            fig = go.Figure()
-            rising=list(ma50)[-td_len:]
-            bwl_up_1=bwl_up[-td_len:]
-            bwl_dw_1=bwl_dw[-td_len:]
-            check=abs((last_bwl_dw[-2]-rising[-2])/last_bwl_dw[-2])
-            check1=abs((last_high-last_close)/last_close)
-            check2=abs((last_high-last_open)/last_open)
-            if rising[-1]>rising[-3]:
-                if abs(check)<=0.001:
-                    if ( (0.0001 < abs(((last_open-last_bwl_dw[-1])/last_bwl_dw[-1]))) and  (abs(((last_open-last_bwl_dw[-1])/last_bwl_dw[-1]))<0.001)) and ((0.0001< abs((last_open-rising[-2])/last_open)) and (abs((last_open-rising[-2])/last_open)<0.001)):
-                        if last_open<last_close:
-                            per=abs((last_close-last_open)/last_open)
-                            if ((0<per)or (per<=6)):  
+            try:
+                y1 = pdr.get_data_yahoo(s,period="1mo",interval='15m')  
+                y2 = pdr.get_data_yahoo(s,period="1d",interval='15m')
+                ma50=get_sma(y1.Close,50)
+                y1 = y1.reset_index()
+                y2 = y2.reset_index()
+                td_len = int(y2.shape[0])
+                bwl_up,bwl_dw=Boll_band(y1.Close)
+                last_bwl_dw=list(bwl_dw)[-td_len+1:]
+                last_bwl_up=list(bwl_up)[-td_len+1:]
+                last_close=list(y2.Close)[-2]
+                last_open=list(y2.Open)[-2]
+                last_high=list(y2.High)[-2]
+                last_low=list(y2.Low)[-2]
+                last_low2=list(y2.Low)[-3]
+                date_list=timelist[:td_len+1]
+                fig = go.Figure()
+                rising=list(ma50)[-td_len:]
+                bwl_up_1=bwl_up[-td_len:]
+                bwl_dw_1=bwl_dw[-td_len:]
+                check=abs((last_bwl_dw[-2]-rising[-2])/last_bwl_dw[-2])
+                check1=abs((last_high-last_close)/last_close)
+                check2=abs((last_high-last_open)/last_open)
+                if rising[-1]>rising[-3]:
+                    if abs(check)<=0.001:
+                        if ( (0.0001 < abs(((last_open-last_bwl_dw[-1])/last_bwl_dw[-1]))) and  (abs(((last_open-last_bwl_dw[-1])/last_bwl_dw[-1]))<0.001)) and ((0.0001< abs((last_open-rising[-2])/last_open)) and (abs((last_open-rising[-2])/last_open)<0.001)):
+                            if last_open<last_close:
+                                per=abs((last_close-last_open)/last_open)
+                                if ((0<per)or (per<=6)):  
+                                    set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
+                                    set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
+                                    set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
+                                    set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
+                                    data = [set1, set2,set3,set4]
+                                    fig = go.Figure(data=data)
+                                    fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+
+                                        str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
+                                        " LOW: "+str(round(last_low,3))+
+                                        " AS ON "+str(end.date())+" STRATEGY - ABC (GBC)")
+                                    fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                                    fig.update_layout(width=1250,height=700) 
+                                    st.plotly_chart(fig)
+                                    if last_low>last_low2:
+                                        fin=last_low2
+                                    else:
+                                        fin=last_low
+                                    risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)          
+                                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                
+                            
+            
+                            elif ((((last_high==last_close)or((check1>=0)and(check1<=0.005)))and (last_low>=(2*last_open))) or (((last_open==last_high)or((check2>=0)and(check2<=0.005))) and (last_low>=(2*last_close)))):
                                 set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
                                 set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
                                 set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
@@ -354,42 +382,19 @@ if(st.button("Start Screening")):
                                 fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+
                                     str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
                                     " LOW: "+str(round(last_low,3))+
-                                    " AS ON "+str(end.date())+" STRATEGY - ABC (GBC)")
+                                    " AS ON "+str(end.date())+" STRATEGY - ABC (Hammer)")
                                 fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
                                 fig.update_layout(width=1250,height=700) 
+                            
                                 st.plotly_chart(fig)
-                                
                                 if last_low>last_low2:
                                     fin=last_low2
                                 else:
                                     fin=last_low
-                                risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)          
+                                risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
-                                
-                            
-            
-                        elif ((((last_high==last_close)or((check1>=0)and(check1<=0.005)))and (last_low>=(2*last_open))) or (((last_open==last_high)or((check2>=0)and(check2<=0.005))) and (last_low>=(2*last_close)))):
-                            set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
-                            set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
-                            set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
-                            set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
-                            data = [set1, set2,set3,set4]
-                            fig = go.Figure(data=data)
-                            fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+
-                                    str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
-                                    " LOW: "+str(round(last_low,3))+
-                                    " AS ON "+str(end.date())+" STRATEGY - ABC (Hammer)")
-                            fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
-                            fig.update_layout(width=1250,height=700) 
-                            
-                            st.plotly_chart(fig)
-                            if last_low>last_low2:
-                                fin=last_low2
-                            else:
-                                fin=last_low
-                            risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)         
-                            st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
-        
+            except:
+                continue
         my_bar.empty()
         st.balloons()    
 
@@ -401,80 +406,83 @@ if(st.button("Start Screening")):
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
             s="{0}.NS".format(i)
-            y1 = pdr.get_data_yahoo(s,period="1mo",interval='15m')  
-            y2 = pdr.get_data_yahoo(s,period="1d",interval='15m')
-            ma50=get_sma(y1.Close,50)
-            y1 = y1.reset_index()
-            y2 = y2.reset_index()
-            td_len = int(y2.shape[0])
-            bwl_up,bwl_dw=Boll_band(y1.Close)
-            last_bwl_dw=list(bwl_dw)[-td_len+1:]
-            last_bwl_up=list(bwl_up)[-td_len+1:]
-            last_close=list(y2.Close)[-2]
-            last_open=list(y2.Open)[-2]
-            last_high=list(y2.High)[-2]
-            last_low=list(y2.Low)[-2]
-            last_low2=list(y2.Low)[-3]
-            date_list=timelist[:td_len+1]
-            fig = go.Figure()
-            rising=list(ma50)[-td_len:]
-            bwl_up_1=bwl_up[-td_len:]
-            bwl_dw_1=bwl_dw[-td_len:]
-            check=abs((last_bwl_up[-2]-rising[-2])/last_bwl_up[-2])
-            #inverted hammer
-            #red
-            check1=abs((last_open-last_low)/last_low)
-            #green
-            check2=abs((last_close-last_low)/last_low)
-            if rising[-3]>rising[-1]:
-              if check<=0.001:
-                if ( (0.0001 < abs((last_open-last_bwl_up[-1])/last_bwl_up[-1])) and  ((abs((last_open-last_bwl_up[-1])/last_bwl_up[-1])<0.001)) and ((0.0001< abs((last_open-rising[-2])/last_open)) and (abs((last_open-rising[-2])/last_open)<0.001))):
-                    if last_open>last_close:
-                      per=abs((last_open-last_close)/last_close)
-                      #print("yoo2",per,i)
-                      if ((0<per)or(per<=6)):  
-                        set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
-                        set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
-                        set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
-                        set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
-                        data = [set1, set2,set3,set4]
-                        fig = go.Figure(data=data)
-                        fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+
-                                    str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
-                                    " LOW: "+str(round(last_low,3))+
-                                    " AS ON "+str(end.date())+" STRATEGY - 15 MIN BUY (GBC)")
-                        fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
-                        fig.update_layout(width=1250,height=700) 
+            try:
+                y1 = pdr.get_data_yahoo(s,period="1mo",interval='15m')  
+                y2 = pdr.get_data_yahoo(s,period="1d",interval='15m')
+                ma50=get_sma(y1.Close,50)
+                y1 = y1.reset_index()
+                y2 = y2.reset_index()
+                td_len = int(y2.shape[0])
+                bwl_up,bwl_dw=Boll_band(y1.Close)
+                last_bwl_dw=list(bwl_dw)[-td_len+1:]
+                last_bwl_up=list(bwl_up)[-td_len+1:]
+                last_close=list(y2.Close)[-2]
+                last_open=list(y2.Open)[-2]
+                last_high=list(y2.High)[-2]
+                last_low=list(y2.Low)[-2]
+                last_low2=list(y2.Low)[-3]
+                date_list=timelist[:td_len+1]
+                fig = go.Figure()
+                rising=list(ma50)[-td_len:]
+                bwl_up_1=bwl_up[-td_len:]
+                bwl_dw_1=bwl_dw[-td_len:]
+                check=abs((last_bwl_up[-2]-rising[-2])/last_bwl_up[-2])
+                #inverted hammer
+                #red
+                check1=abs((last_open-last_low)/last_low)
+                #green
+                check2=abs((last_close-last_low)/last_low)
+                if rising[-3]>rising[-1]:
+                    if check<=0.001:
+                        if ( (0.0001 < abs((last_open-last_bwl_up[-1])/last_bwl_up[-1])) and  ((abs((last_open-last_bwl_up[-1])/last_bwl_up[-1])<0.001)) and ((0.0001< abs((last_open-rising[-2])/last_open)) and (abs((last_open-rising[-2])/last_open)<0.001))):
+                            if last_open>last_close:
+                                per=abs((last_open-last_close)/last_close)
+                                #print("yoo2",per,i)
+                                if ((0<per)or(per<=6)):  
+                                    set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
+                                    set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
+                                    set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
+                                    set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
+                                    data = [set1, set2,set3,set4]
+                                    fig = go.Figure(data=data)
+                                    fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+
+                                        str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
+                                        " LOW: "+str(round(last_low,3))+
+                                        " AS ON "+str(end.date())+" STRATEGY - 15 MIN BUY (GBC)")
+                                    fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                                    fig.update_layout(width=1250,height=700) 
+                                    st.plotly_chart(fig)
                         
-                        st.plotly_chart(fig)
-                        if last_low>last_low2:
-                          fin=last_low2
-                        else:
-                          fin=last_low
-                        risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)          
-                        st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                    if last_low>last_low2:
+                                        fin=last_low2
+                                    else:
+                                        fin=last_low
+                                    risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)          
+                                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
                         #break
-                    elif ((((last_open==last_low)or((check1>=0)and(check1<=0.005)))and (last_high>=(2*last_close))) or (((last_close==last_low)or((check2>=0)and(check2<=0.005))) and (last_high>=(2*last_open)))):
-                        set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
-                        set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
-                        set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
-                        set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
-                        data = [set1, set2,set3,set4]
-                        fig = go.Figure(data=data)
-                        fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+
+                            elif ((((last_open==last_low)or((check1>=0)and(check1<=0.005)))and (last_high>=(2*last_close))) or (((last_close==last_low)or((check2>=0)and(check2<=0.005))) and (last_high>=(2*last_open)))):
+                                set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
+                                set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 50 periods','hoverinfo':'skip'}
+                                set3 = { 'x': date_list, 'y':bwl_up_1 , 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'green' },'name': 'Bollinger up','hoverinfo':'skip'}
+                                set4 = { 'x': date_list, 'y': bwl_dw_1, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'red' },'name': 'Bollinger down','hoverinfo':'skip'}
+                                data = [set1, set2,set3,set4]
+                                fig = go.Figure(data=data)
+                                fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+
                                     str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
                                     " LOW: "+str(round(last_low,3))+
                                     " AS ON "+str(end.date())+" STRATEGY - 15 MIN SELL  (GBC)")
-                        fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
-                        fig.update_layout(width=1250,height=700) 
+                                fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                                fig.update_layout(width=1250,height=700) 
+                                st.plotly_chart(fig)
                         
-                        st.plotly_chart(fig)
-                        if last_low>last_low2:
-                            fin=last_low2
-                        else:
-                            fin=last_low
-                        risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)         
-                        st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                if last_low>last_low2:
+                                    fin=last_low2
+                                else:
+                                    fin=last_low
+                                risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)         
+                                st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+            except:
+                continue
         my_bar.empty()
         st.balloons()    
     else:
