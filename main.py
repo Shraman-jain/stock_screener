@@ -159,7 +159,7 @@ if(st.button("Start Screening")):
                                     st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
     
             except:
-                continue            
+                pass            
         my_bar.empty()
         st.balloons()    
         
@@ -238,7 +238,7 @@ if(st.button("Start Screening")):
                 else:
                     pass
             except:
-                continue        
+                pass        
         my_bar.empty()
         st.balloons()    
     
@@ -288,7 +288,7 @@ if(st.button("Start Screening")):
                 else:
                     pass
             except:
-                continue
+                pass
         my_bar.empty()
         st.balloons()    
     
@@ -394,7 +394,7 @@ if(st.button("Start Screening")):
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
             except:
-                continue
+                pass
         my_bar.empty()
         st.balloons()    
 
@@ -482,7 +482,7 @@ if(st.button("Start Screening")):
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
             except:
-                continue
+                pass
         my_bar.empty()
         st.balloons()    
     else:
