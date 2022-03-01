@@ -9,8 +9,8 @@ import pandas_datareader.data as pdr
 import math
 yf.pdr_override()
 
-st.text("DB username:", st.secrets["db_username"])
-st.text("DB password:", st.secrets["db_password"])
+st.write("DB username:", st.secrets["db_username"])
+st.write("DB password:", st.secrets["db_password"])
 
 
 def get_sma(prices,rate):
