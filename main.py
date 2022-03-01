@@ -9,9 +9,6 @@ import pandas_datareader.data as pdr
 import math
 yf.pdr_override()
 
-st.write("DB username:", st.secrets["db_username"])
-st.write("DB password:", st.secrets["db_password"])
-
 
 def get_sma(prices,rate):
   return prices.rolling(rate).mean()
@@ -162,7 +159,7 @@ if(st.button("Start Screening")):
                                     st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
     
             except:
-                pass            
+                continue            
         my_bar.empty()
         st.balloons()    
         
@@ -175,10 +172,10 @@ if(st.button("Start Screening")):
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
             sym="{0}.NS".format(i)
-            d = pdr.get_data_yahoo(sym,period="max",interval='1d')
-            d = d.reset_index()
-            d = d.drop(['Volume'],axis = 1)
             try:
+                d = pdr.get_data_yahoo(sym,period="max",interval='1d')
+                d = d.reset_index()
+                d = d.drop(['Volume'],axis = 1)
                 ma44 = get_sma(d.Close,44)
                 bwl_up,bwl_dw=Boll_band(d.Close)
                 ma_list=list(ma44)
@@ -241,7 +238,7 @@ if(st.button("Start Screening")):
                 else:
                     pass
             except:
-                pass        
+                continue        
         my_bar.empty()
         st.balloons()    
     
@@ -291,7 +288,7 @@ if(st.button("Start Screening")):
                 else:
                     pass
             except:
-                pass
+                continue
         my_bar.empty()
         st.balloons()    
     
@@ -397,7 +394,7 @@ if(st.button("Start Screening")):
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
             except:
-                pass
+                continue
         my_bar.empty()
         st.balloons()    
 
@@ -485,7 +482,7 @@ if(st.button("Start Screening")):
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
             except:
-                pass
+                continue
         my_bar.empty()
         st.balloons()    
     else:
