@@ -9,7 +9,8 @@ import pandas_datareader.data as pdr
 import math
 yf.pdr_override()
 
-
+st.write("DB username:", st.secrets["db_username"])
+st.write("DB password:", st.secrets["db_password"])
 
 def get_sma(prices,rate):
   return prices.rolling(rate).mean()
