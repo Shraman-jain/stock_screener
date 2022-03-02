@@ -10,8 +10,8 @@ import math
 yf.pdr_override()
 
 
-st.text(st.secrets["db_username"])
-st.text(st.secrets["db_password"])
+st.secrets["db_username"]
+st.secrets["db_password"]
 
 
 def get_sma(prices,rate):
@@ -176,10 +176,10 @@ if(st.button("Start Screening")):
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
             sym="{0}.NS".format(i)
-            d = pdr.get_data_yahoo(sym,period="max",interval='1d')
-            d = d.reset_index()
-            d = d.drop(['Volume'],axis = 1)
             try:
+                d = pdr.get_data_yahoo(sym,period="max",interval='1d')
+                d = d.reset_index()
+                d = d.drop(['Volume'],axis = 1)
                 ma44 = get_sma(d.Close,44)
                 bwl_up,bwl_dw=Boll_band(d.Close)
                 ma_list=list(ma44)
@@ -256,10 +256,10 @@ if(st.button("Start Screening")):
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
             sym="{0}.NS".format(i)
-            d = pdr.get_data_yahoo(sym,period="max",interval='1d')
-            d = d.reset_index()
-            d = d.drop(['Volume'],axis = 1)
             try:
+                d = pdr.get_data_yahoo(sym,period="max",interval='1d')
+                d = d.reset_index()
+                d = d.drop(['Volume'],axis = 1)
                 bwl_up,bwl_dw=Boll_band(d.Close)
                 bwl_up_list = list(bwl_up)
                 bwl_dw_list = list(bwl_dw)
@@ -493,3 +493,6 @@ if(st.button("Start Screening")):
         st.text("Select some strategy ")  
 else:
     st.text("click on start Screening")      
+
+
+
