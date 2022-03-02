@@ -9,6 +9,9 @@ import pandas_datareader.data as pdr
 import math
 yf.pdr_override()
 
+st.secrets["db_username"]
+st.secrets["db_password"]
+
 
 def get_sma(prices,rate):
   return prices.rolling(rate).mean()
@@ -490,5 +493,4 @@ if(st.button("Start Screening")):
 else:
     st.text("click on start Screening")      
 
-st.secrets["db_username"]
-st.secrets["db_password"]
+
