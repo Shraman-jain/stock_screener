@@ -11,7 +11,7 @@ yf.pdr_override()
 
 
 st.secrets["DB_USERNAME"]
-st.secrets["DB_PASSWORD"]
+st.secrets["DB_TOKEN"]
 
 
 def get_sma(prices,rate):
