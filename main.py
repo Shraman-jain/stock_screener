@@ -10,8 +10,8 @@ import math
 yf.pdr_override()
 
 
-st.secrets["db_username"]
-st.secrets["db_password"]
+st.text(st.secrets["db_username"])
+st.text(st.secrets["db_password"])
 
 
 def get_sma(prices,rate):
