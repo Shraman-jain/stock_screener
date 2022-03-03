@@ -10,8 +10,7 @@ import math
 yf.pdr_override()
 
 
-st.secrets["DB_USERNAME"]
-st.secrets["DB_TOKEN"]
+
 
 
 def get_sma(prices,rate):
@@ -133,6 +132,7 @@ if(st.button("Start Screening")):
                                     fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
                                     fig.update_layout(width=1250,height=700) 
+                                    fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
                                     st.plotly_chart(fig)
                                     if low_list[-1]>low_list[-2]:
                                         fin=low_list[-2]
@@ -153,7 +153,8 @@ if(st.button("Start Screening")):
                                     fig = go.Figure(data=data)
                                     fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                                    fig.update_layout(width=1250,height=700) 
+                                    fig.update_layout(width=1250,height=700)
+                                    fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
                                     st.plotly_chart(fig)
                                     if low_list[-1]>low_list[-2]:
                                         fin=low_list[-2]
@@ -206,7 +207,9 @@ if(st.button("Start Screening")):
                                 fig = go.Figure(data=data)
                                 fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                                fig.update_layout(width=1250,height=700) 
+                                fig.update_layout(width=1250,height=700)
+                                fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                     
                                 st.plotly_chart(fig)
                         
                                 if low_list[-1]>low_list[-2]:
@@ -227,6 +230,8 @@ if(st.button("Start Screening")):
                                 fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
                                 fig.update_layout(width=1250,height=700) 
+                                fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                    
                                 st.plotly_chart(fig)
                         
                                 if low_list[-1]>low_list[-2]:
@@ -280,6 +285,8 @@ if(st.button("Start Screening")):
                         fig.update_layout(title_text=i +" CLOSE: "+str(round(list(d.Close)[-1],3))+" OPEN: "+str(round(list(d.Open)[-1],3))+" HIGH: "+str(round(list(d.High)[-1],3))+
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
                         fig.update_layout(width=1250,height=700) 
+                        fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                    
                         st.plotly_chart(fig)
                         if low_list[-1]>low_list[-2]:
                             fin=low_list[-2]
@@ -370,6 +377,8 @@ if(st.button("Start Screening")):
                                         " AS ON "+str(end.date())+" STRATEGY - 15MIN ABC (GBC)")
                                     fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
                                     fig.update_layout(width=1250,height=700) 
+                                    fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                    
                                     st.plotly_chart(fig)
                                     if last_low>last_low2:
                                         fin=last_low2
@@ -393,7 +402,8 @@ if(st.button("Start Screening")):
                                     " AS ON "+str(end.date())+" STRATEGY - ABC (Hammer)")
                                 fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
                                 fig.update_layout(width=1250,height=700) 
-                            
+                                fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                    
                                 st.plotly_chart(fig)
                                 if last_low>last_low2:
                                     fin=last_low2
@@ -459,6 +469,8 @@ if(st.button("Start Screening")):
                                         " AS ON "+str(end.date())+" STRATEGY - 15 MIN BUY (GBC)")
                                     fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
                                     fig.update_layout(width=1250,height=700) 
+                                    fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                    
                                     st.plotly_chart(fig)
                         
                                     if last_low>last_low2:
@@ -481,6 +493,8 @@ if(st.button("Start Screening")):
                                     " AS ON "+str(end.date())+" STRATEGY - 15 MIN SELL  (GBC)")
                                 fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
                                 fig.update_layout(width=1250,height=700) 
+                                fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                    
                                 st.plotly_chart(fig)
                         
                                 if last_low>last_low2:
@@ -534,6 +548,8 @@ if(st.button("Start Screening")):
                                 fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
                                             " LOW: "+str(round(last_low,3))+" \n AS ON "+str(end.date())+" STRATEGY - 15MIN 44MA")
                                 fig.update_layout(width=1250,height=700) 
+                                fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                    
                                 st.plotly_chart(fig)
                         
                                 if last_low>last_low2:
@@ -554,6 +570,8 @@ if(st.button("Start Screening")):
                                 fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
                                             " LOW: "+str(round(last_low,3))+" \n AS ON "+str(end.date())+" STRATEGY - 15MIN 44MA")
                                 fig.update_layout(width=1250,height=700) 
+                                fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
+                                    
                                 st.plotly_chart(fig)
                         
                                 if last_low>last_low2:
@@ -580,4 +598,5 @@ else:
     st.text("click on start Screening")      
 
 
-
+st.secrets["DB_USERNAME"]
+st.secrets["DB_TOKEN"]
