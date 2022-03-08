@@ -49,7 +49,7 @@ end = dt.datetime.now()
 
 st.title('STOCK SCREENER')
 
-strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY (ABC)','15 MIN SELL (ABC)','15 MIN BUY (44MA)'))
+strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY (ABC)','15 MIN SELL (ABC)','15 MIN BUY (44MA)','15 MIN SELL (44MA)'))
 st.write("selected",strgy)
 sc_list = st.selectbox("SCRIPT LIST",('None','Nifty 500', 'Large Cap', 'Mid Cap','Small Cap'))
 st.write("selected",sc_list)
@@ -591,6 +591,85 @@ if(st.button("Start Screening")):
         my_bar.empty()
         st.balloons()    
     
+    elif strgy == "15 MIN SELL (44MA)":
+        j=0
+        my_bar = st.progress(0)
+        for i in final_list:
+            j+=1
+            percent_complete=j/len(final_list)
+            my_bar.progress(percent_complete)    
+            s="{0}.NS".format(i)
+            try:
+                y1 = pdr.get_data_yahoo(s,period="1mo",interval='15m')  
+                y2 = pdr.get_data_yahoo(s,period="1d",interval='15m')
+                ma44=get_sma(y1.Close,44)
+                y1 = y1.reset_index()
+                y2 = y2.reset_index()
+                td_len = int(y2.shape[0])
+                bwl_up,bwl_dw=Boll_band(y1.Close)
+                last_bwl_dw=list(bwl_dw)[-td_len+1:]
+                last_bwl_up=list(bwl_up)[-td_len+1:]
+                last_close=list(y2.Close)[-2]
+                last_open=list(y2.Open)[-2]
+                last_high=list(y2.High)[-2]
+                last_low=list(y2.Low)[-2]
+                last_low2=list(y2.Low)[-3]
+                date_list=timelist[:td_len+1]
+                fig = go.Figure()
+                rising=list(ma44)[-td_len:]
+
+                if rising[-1]<rising[-3] or  ma50_list[-1] < ma50_list[-3] :
+                    if (((0.0001 < ((last_close-last_bwl_dw[-1])/last_close)) and  ( ((last_close-last_bwl_dw[-1])/last_close)<0.03)) and ((0.0001< float((last_close-rising[-1])/last_close)) and (float((last_close-rising[-1])/last_close)<0.03))):
+                        if last_open>last_close:
+                            per=(((last_high-last_low)/last_high)*100)
+                            if ((0<int(round(per,1)))or(int(round(per,1))<=6)):
+                                set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
+                                set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
+                            
+                                data = [set1, set2]
+    
+                                fig = go.Figure(data=data)
+                                fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
+                                            " LOW: "+str(round(last_low,3))+" \n AS ON "+str(end.date())+" STRATEGY - 15MIN 44MA")
+                                fig.update_layout(width=1250,height=700) 
+                                st.plotly_chart(fig)
+                        
+                                if last_low>last_low2:
+                                    fin=last_low2
+                                else:
+                                    fin=last_low
+                                risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)
+                                st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                        
+                        elif ((((0<=last_low-last_close)and(1>=last_low-last_close))and((last_close-last_open)*2 <=(last_high-last_close))) or 
+                                (((0<=last_low-last_open)and(1>=last_low-last_open))and((last_open-last_close)*2 <=(last_high-last_open)))):
+                                set1 = { 'x': date_list, 'open': y2.Open, 'close': y2.Close, 'high': y2.High, 'low': y2.Low, 'type': 'candlestick','name' : 'price'}
+                                set2 = { 'x': date_list, 'y': rising, 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
+                            
+                                data = [set1, set2]
+    
+                                fig = go.Figure(data=data)
+                                fig.update_layout(title_text=i +" CLOSE: "+str(round(last_close,3))+" OPEN: "+str(round(last_open,3))+" HIGH: "+str(round(last_high,3))+
+                                            " LOW: "+str(round(last_low,3))+" \n AS ON "+str(end.date())+" STRATEGY - 15MIN 44MA")
+                                fig.update_layout(width=1250,height=700) 
+                                st.plotly_chart(fig)
+                        
+                                if last_low>last_low2:
+                                    fin=last_low2
+                                else:
+                                    fin=last_low
+                                risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)
+                                st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                        else:
+                            pass
+                    else:
+                        pass
+                else:
+                    pass
+            except:
+                continue        
+        my_bar.empty()
+        st.balloons()
     
     else:
         st.text("Select some strategy ")  
