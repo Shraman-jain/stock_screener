@@ -312,8 +312,7 @@ if(st.button("Start Screening")):
                         else:
                             fin=low_list[-1]
                         risk,ep,sl,nos,tg1=risk_ana(high_list[-1]+1,fin-1,"BB")          
-                        with st.expander("Target Info"):
-                            st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:03 -- "+str(tg1))
+                        st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:03 -- "+str(tg1))
                     else:
                         pass
                 else:
