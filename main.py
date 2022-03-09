@@ -61,15 +61,15 @@ r=st.sidebar.text_input('Risk')
 ep=st.sidebar.text_input('Entry Price')
 stop_l=st.sidebar.text_input('Stop Loss')
 try:
-    sl=int(ep)-int(stop_l)
-    no_of_share=math.ceil(int(r)/sl)
-    target1 = int(ep)+sl
-    target2 = int(ep)+(sl*2)
-    target3 = int(ep)+(sl*3)
+  sl=int(ep)-int(stop_l)
+  no_of_share=math.ceil(int(r)/sl)
+  target1 = int(ep)+sl
+  target2 = int(ep)+(sl*2)
+  target3 = int(ep)+(sl*3)
 except:
-    continue
+  continue
 if st.sidebar.button('Calculate'):
-    st.sidebar.text("Risk-- "+str(r)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(no_of_share)+"\n"+"TARGET 1:01 -- "+str(target1)+"\n"+"TARGET 1:02 -- "+str(target2)+"\n"+"TARGET 1:03 -- "+str(target3))
+  st.sidebar.text("Risk-- "+str(r)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(no_of_share)+"\n"+"TARGET 1:01 -- "+str(target1)+"\n"+"TARGET 1:02 -- "+str(target2)+"\n"+"TARGET 1:03 -- "+str(target3))
 
 
 
