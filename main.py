@@ -58,7 +58,7 @@ st.write("selected",sc_list)
 #side bar
 st.sidebar.write(
     "Risk Analysis Calculator")
-r=st.sidebar.number_input('Risk')
+r=st.sidebar.text_input('Risk')
 ep=st.sidebar.text_input('Entry Price')
 stop_l=st.sidebar.text_input('Stop Loss')
 try:
