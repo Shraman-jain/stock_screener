@@ -54,6 +54,25 @@ st.write("selected",strgy)
 sc_list = st.selectbox("SCRIPT LIST",('None','Nifty 500', 'Large Cap', 'Mid Cap','Small Cap'))
 st.write("selected",sc_list)
 
+#side bar
+st.sidebar.write(
+    "Risk Analysis Calculator")
+r=st.sidebar.text_input('Risk')
+ep=st.sidebar.text_input('Entry Price')
+stop_l=st.sidebar.text_input('Stop Loss')
+sl=int(ep)-int(stop_l)
+no_of_share=math.ceil(int(r)/sl)
+target1 = int(ep)+sl
+target2 = int(ep)+(sl*2)
+target3 = int(ep)+(sl*3)
+target1 = "{:.2f}".format(target1)
+target2 = "{:.2f}".format(target2)
+target3 = "{:.2f}".format(target3)
+
+if st.sidebar.button('Calculate'):
+    st.sidebar.text("Risk-- "+str(r)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(no_of_share)+"\n"+"TARGET 1:01 -- "+str(target1)+"\n"+"TARGET 1:02 -- "+str(target2)+"\n"+"TARGET 1:03 -- "+str(target3))
+
+
 
 nifty_500=['3MINDIA', 'ABB', 'ACC', 'AIAENG', 'APLAPOLLO', 'AUBANK', 'AARTIDRUGS', 'AARTIIND', 'AAVAS', 'ABBOTINDIA', 'ADANIENT', 'ADANIGREEN', 'ADANIPORTS', 'ATGL', 'ADANITRANS', 'ABCAPITAL', 'ABFRL', 'ADVENZYMES', 'AEGISCHEM', 'AFFLE', 'AJANTPHARM', 'ALEMBICLTD', 'APLLTD', 'ALKEM', 'ALKYLAMINE', 'ALOKINDS', 'AMARAJABAT', 'AMBER', 'AMBUJACEM', 'ANGELONE', 'ANURAS', 'APOLLOHOSP', 'APOLLOTYRE', 'ASAHIINDIA', 'ASHOKLEY', 'ASHOKA', 'ASIANPAINT', 'ASTERDM', 'ASTRAZEN', 'ASTRAL', 'ATUL', 'AUROPHARMA', 'AVANTIFEED', 'DMART', 'AXISBANK', 
             'BASF', 'BEML', 'BSE', 'BAJAJ-AUTO', 'BAJAJCON', 'BAJAJELEC', 'BAJFINANCE', 'BAJAJFINSV', 'BAJAJHLDNG', 'BALAMINES', 'BALKRISIND', 'BALRAMCHIN', 'BANDHANBNK', 'BANKBARODA', 'BANKINDIA', 'MAHABANK', 'BATAINDIA', 'BAYERCROP', 'BERGEPAINT', 'BDL', 'BEL', 'BHARATFORG', 'BHEL', 'BPCL', 'BHARATRAS', 'BHARTIARTL', 'BIOCON', 'BIRLACORPN', 'BSOFT', 'BLUEDART', 'BLUESTARCO', 'BBTC', 'BOSCHLTD', 'BRIGADE', 'BRITANNIA', 'BURGERKING', 'CCL', 'CESC', 'CGPOWER', 'CRISIL', 'CSBBANK', 'CADILAHC', 'CANFINHOME', 'CANBK', 'CAPLIPOINT', 
