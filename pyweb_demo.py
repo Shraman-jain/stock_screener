@@ -9,7 +9,7 @@ ep=st.text_input('Entry Price',key='w')
 incr = st.button('Increment')
 dec = st.button('DEC')
 if incr:
-    st.write(st.session_state.r+st.session_state.ep)
+    st.write(st.session_state.r+st.session_state.w)
 
 if dec:
-    st.write(st.session_state.ep+st.session_state.r)
+    st.write(st.session_state.w+st.session_state.r)
