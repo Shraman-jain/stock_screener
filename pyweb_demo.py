@@ -8,8 +8,13 @@ ep=st.text_input('Entry Price',key='w')
 
 incr = st.button('Increment')
 dec = st.button('DEC')
-if incr:
-    st.write(st.session_state.r+st.session_state.w)
+try:
+    if incr:
+        for i in range(int(st.session_state.r)):
+            st.write(i)
 
-if dec:
-    st.write(st.session_state.w+st.session_state.r)
+    if dec:
+        for i in range(int(st.session_state.w)):
+            st.write(i)
+except Exception as e:
+    st.exception(e)
