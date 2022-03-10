@@ -692,7 +692,7 @@ if(st.button("Start Screening")):
                     
         my_bar.empty()
         st.balloons()
-    elif strgy == "trial":
+    elif strgy == "Trial":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
