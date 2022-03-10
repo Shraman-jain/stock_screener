@@ -25,7 +25,7 @@ try:
         for i in large_list:
             st.write(i)
             sym="{0}.NS".format(i)
-            d = pdr.get_data_yahoo(sym,period="1w",interval='1d')
+            d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
             st.dataframe(d)
 
@@ -33,7 +33,7 @@ try:
         for i in mid_list:
             st.write(i)
             sym="{0}.NS".format(i)
-            d = pdr.get_data_yahoo(sym,period="1w",interval='1d')
+            d = pdr.get_data_yahoo(sym,period="max",interval='1d')
             d = d.reset_index()
             st.dataframe(d)
 except Exception as e:
