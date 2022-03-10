@@ -278,9 +278,8 @@ if(st.button("Start Screening")):
         
 
     elif strgy == "BOLLINGER BAND":
-        j,k=0,0
+        j=0
         my_bar = st.progress(0)
-        download_list={}
         for i in final_list:
             j+=1
             percent_complete=j/len(final_list)
@@ -319,16 +318,6 @@ if(st.button("Start Screening")):
                             fin=low_list[-1]
                         risk,ep,sl,nos,tg1=risk_ana(high_list[-1]+1,fin-1,"BB")          
                         st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:03 -- "+str(tg1))
-                        download_list[k]={'stock_number':k,
-                                                       'stock_name':i,
-                                                       'strategy': 'BB',
-                                                       'Risk':str(risk),
-                                                       "Entry Price":str(ep),
-                                                       "Stop Loss":str(sl),
-                                                       "NO OF SHARES":str(nos),
-                                                       "TARGET 1:03":str(tg1)}
-                        k+=1          
-                        
                     else:
                         pass
                 else:
@@ -337,9 +326,6 @@ if(st.button("Start Screening")):
                 continue
         my_bar.empty()
         st.balloons()
-        fileName='BB'+str(end)+'.txt'
-        st.download_button('Download List',download_list,fileName)
-    
         
     elif strgy == "ATH":
         j=0
