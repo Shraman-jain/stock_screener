@@ -7,6 +7,7 @@ import datetime as dt
 import yfinance as yf
 import pandas_datareader.data as pdr
 import math
+yf.pdr_override()
 
 st.session_state
 st.title('Cal')
