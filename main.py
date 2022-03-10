@@ -10,8 +10,6 @@ import math
 yf.pdr_override()
 
 
-st.info('New Feature Update!! Risk Analysis Calculator - Click on the arrow in top left corner to access ')
-
 def get_sma(prices,rate):
   return prices.rolling(rate).mean()
 
@@ -50,7 +48,7 @@ end = dt.datetime.now()
 
 st.title('STOCK SCREENER')
 
-strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY (ABC)','15 MIN SELL (ABC)','15 MIN BUY (44MA)','15 MIN SELL (44MA)'))
+strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY (ABC)','15 MIN SELL (ABC)','15 MIN BUY (44MA)','15 MIN SELL (44MA)','Trial'))
 st.write("selected",strgy)
 sc_list = st.selectbox("SCRIPT LIST",('None','Nifty 500', 'Large Cap', 'Mid Cap','Small Cap'))
 st.write("selected",sc_list)
@@ -187,8 +185,8 @@ if(st.button("Start Screening")):
                                     risk,ep,sl,nos,tg1,tg2=risk_ana(high_list[-1]+1,fin-1)          
                                     st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
     
-            except:
-                continue            
+            except Exception as e:
+                st.exception(e)            
         my_bar.empty()
         st.balloons()    
         
@@ -270,8 +268,8 @@ if(st.button("Start Screening")):
                         pass
                 else:
                     pass
-            except:
-                continue        
+            except Exception as e:
+                st.exception(e)        
         my_bar.empty()
         st.balloons()    
     
@@ -322,8 +320,8 @@ if(st.button("Start Screening")):
                         pass
                 else:
                     pass
-            except:
-                continue
+            except Exception as e:
+                st.exception(e)
         my_bar.empty()
         st.balloons()
         
@@ -342,8 +340,8 @@ if(st.button("Start Screening")):
                 per_close = (hgh-list(y['Close'])[-1])/(list(y['Close'])[-1]) 
                 if (hgh == list(y['Close'])[-1]) or (0<per_close and per_close<0.05): 
                     st.write('[{0}](https://in.tradingview.com/chart/YV59lPqR/?symbol=NSE%3A{0})'.format(i))
-            except:
-                pass
+            except Exception as e:
+                st.exception(e)
         my_bar.empty()
         st.balloons()    
     
@@ -434,8 +432,8 @@ if(st.button("Start Screening")):
                                     fin=last_low
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
-            except:
-                continue
+            except Exception as e:
+                st.exception(e)
         my_bar.empty()
         st.balloons()    
 
@@ -526,8 +524,8 @@ if(st.button("Start Screening")):
                                     fin=last_low
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
-            except:
-                continue
+            except Exception as e:
+                st.exception(e)
         my_bar.empty()
         st.balloons()    
     elif strgy == "15 MIN BUY (44MA)":
@@ -609,8 +607,8 @@ if(st.button("Start Screening")):
                         pass
                 else:
                     pass
-            except:
-                continue        
+            except Exception as e:
+                st.exception(e) 
         my_bar.empty()
         st.balloons()    
     
@@ -689,10 +687,48 @@ if(st.button("Start Screening")):
                         pass
                 else:
                     pass
-            except:
-                continue        
+            except Exception as e:
+                st.exception(e)
+                    
         my_bar.empty()
         st.balloons()
+    elif strgy == "trial":
+        j=0
+        my_bar = st.progress(0)
+        for i in final_list:
+            j+=1
+            percent_complete=j/len(final_list)
+            my_bar.progress(percent_complete)    
+            s="{0}.NS".format(i)
+            try:
+                y = pdr.get_data_yahoo(s,period="max",interval='1d')
+                y = y.reset_index()
+                ma50 = get_sma(y.Close,50)
+                ma44 = get_sma(y.Close,44)
+                ma_list_50=list(ma50)
+                ma_list_44=list(ma44)
+                close_list = list(y.Close)
+                open_list = list(y.Open)
+                low_list = list(y.Low)
+                high_list = list(y.High)
+                date_list = list(y.Date)
+                if ma_list_44[-1]>ma_list_44[-100] and ma_list_44[-1]>ma_list_44[-50] and ma_list_44[-1]>ma_list_44[-25]and ma_list_44[-1]>ma_list_44[-10]:
+                    set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
+                    set2 = { 'x': date_list[-100:], 'y': ma50[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'blue' },'name': 'MA 50 periods','hoverinfo':'skip'}
+                    set3 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
+                    data = [set1, set2,set3]
+                    fig = go.Figure(data=data)
+                    fig.update_layout(title_text=i +" CLOSE: "+str(round(list(y.Close)[-1],3))+" OPEN: "+str(round(list(y.Open)[-1],3))+" HIGH: "+str(round(list(y.High)[-1],3))+
+                            " LOW: "+str(round(list(y.Low)[-1],3))+" \n AS ON "+str(end.date()))
+                    fig.update_layout(width=1250,height=700) 
+                    fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                    st.plotly_chart(fig)
+                else:
+                    pass    
+            except Exception as e:
+                st.exception(e)
+        my_bar.empty()
+        st.balloons()    
     
     else:
         st.text("Select some strategy ")  
