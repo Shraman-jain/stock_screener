@@ -156,13 +156,13 @@ if(st.button("Start Screening",key="strat_btn")):
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
                                     fig.update_layout(width=1250,height=700) 
                                     fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
-                                    st.plotly_chart(fig)
+                                    st.plotly_chart(fig,key="fig1")
                                     if low_list[-1]>low_list[-2]:
                                         fin=low_list[-2]
                                     else:
                                         fin=low_list[-1]
                                     risk,ep,sl,nos,tg1,tg2=risk_ana(high_list[-1]+1,fin-1)          
-                                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2),key="txt1")
                                 else:
                                     pass
     
@@ -178,13 +178,13 @@ if(st.button("Start Screening",key="strat_btn")):
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
                                     fig.update_layout(width=1250,height=700)
                                     fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
-                                    st.plotly_chart(fig)
+                                    st.plotly_chart(fig,key="fig2")
                                     if low_list[-1]>low_list[-2]:
                                         fin=low_list[-2]
                                     else:
                                         fin=low_list[-1]
                                     risk,ep,sl,nos,tg1,tg2=risk_ana(high_list[-1]+1,fin-1)          
-                                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2),key="txt2")
     
             except Exception as e:
                 st.exception(e)            
