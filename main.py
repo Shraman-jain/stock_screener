@@ -49,19 +49,19 @@ end = dt.datetime.now()
 
 st.title('STOCK SCREENER')
 
-strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY (ABC)','15 MIN SELL (ABC)','15 MIN BUY (44MA)','15 MIN SELL (44MA)','Trial'),key="n50")
+strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY (ABC)','15 MIN SELL (ABC)','15 MIN BUY (44MA)','15 MIN SELL (44MA)','Trial'),key="strategy")
 st.write("selected",strgy)
-sc_list = st.selectbox("SCRIPT LIST",('None','Nifty 500', 'Large Cap', 'Mid Cap','Small Cap'))
+sc_list = st.selectbox("SCRIPT LIST",('None','Nifty 500', 'Large Cap', 'Mid Cap','Small Cap'),key="sc_list")
 st.write("selected",sc_list)
 
 #side bar
 st.sidebar.write(
     "Risk Analysis Calculator")
-r=st.sidebar.text_input('Risk')
-ep=st.sidebar.text_input('Entry Price')
-stop_l=st.sidebar.text_input('Stop Loss')
+r=st.sidebar.text_input('Risk',key="risk")
+ep=st.sidebar.text_input('Entry Price',key="ep")
+stop_l=st.sidebar.text_input('Stop Loss',key="stop_l")
 try:
-  sl=int(ep)-int(stop_l)
+  sl=int(st.session_state.ep)-int(st.session_state.key.stop_l)
   no_of_share=math.ceil(int(r)/sl)
   target1 = int(ep)+sl
   target2 = int(ep)+(sl*2)
@@ -69,7 +69,7 @@ try:
 except:
   pass
 if st.sidebar.button('Calculate'):
-  st.sidebar.text("Risk-- "+str(r)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(stop_l)+"\n"+"NO OF SHARES-- "+str(no_of_share)+"\n"+"TARGET 1:01 -- "+str(target1)+"\n"+"TARGET 1:02 -- "+str(target2)+"\n"+"TARGET 1:03 -- "+str(target3))
+  st.sidebar.text("Risk-- "+str(r)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(stop_l)+"\n"+"NO OF SHARES-- "+str(no_of_share)+"\n"+"TARGET 1:01 -- "+str(target1)+"\n"+"TARGET 1:02 -- "+str(target2)+"\n"+"TARGET 1:03 -- "+str(target3),key="RiskAna")
 
 
 
@@ -114,8 +114,8 @@ else:
     st.text("select some script")
         
 
-if(st.button("Start Screening")):
-    if strgy == "ABC":
+if(st.button("Start Screening",key="strat_btn")):
+    if st.session_state.strategy == "ABC":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -192,7 +192,7 @@ if(st.button("Start Screening")):
         st.balloons()    
         
     
-    elif strgy == "44MA":
+    elif st.session_state.strategy == "44MA":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -276,7 +276,7 @@ if(st.button("Start Screening")):
     
         
 
-    elif strgy == "BOLLINGER BAND":
+    elif st.session_state.strategy == "BOLLINGER BAND":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -326,7 +326,7 @@ if(st.button("Start Screening")):
         my_bar.empty()
         st.balloons()
         
-    elif strgy == "ATH":
+    elif st.session_state.strategy == "ATH":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -346,7 +346,7 @@ if(st.button("Start Screening")):
         my_bar.empty()
         st.balloons()    
     
-    elif strgy == "15 MIN BUY (ABC)":
+    elif st.session_state.strategy == "15 MIN BUY (ABC)":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -438,7 +438,7 @@ if(st.button("Start Screening")):
         my_bar.empty()
         st.balloons()    
 
-    elif strgy == "15 MIN SELL (ABC)":
+    elif st.session_state.strategy == "15 MIN SELL (ABC)":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -529,7 +529,7 @@ if(st.button("Start Screening")):
                 st.exception(e)
         my_bar.empty()
         st.balloons()    
-    elif strgy == "15 MIN BUY (44MA)":
+    elif st.session_state.strategy == "15 MIN BUY (44MA)":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -613,7 +613,7 @@ if(st.button("Start Screening")):
         my_bar.empty()
         st.balloons()    
     
-    elif strgy == "15 MIN SELL (44MA)":
+    elif st.session_state.strategy == "15 MIN SELL (44MA)":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -693,7 +693,7 @@ if(st.button("Start Screening")):
                     
         my_bar.empty()
         st.balloons()
-    elif strgy == "Trial":
+    elif st.session_state.strategy == "Trial":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
