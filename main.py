@@ -9,8 +9,6 @@ import pandas_datareader.data as pdr
 import math
 yf.pdr_override()
 
-"session state",(st.session_state)
-
 def get_sma(prices,rate):
   return prices.rolling(rate).mean()
 
@@ -49,19 +47,19 @@ end = dt.datetime.now()
 
 st.title('STOCK SCREENER')
 
-strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY (ABC)','15 MIN SELL (ABC)','15 MIN BUY (44MA)','15 MIN SELL (44MA)','Trial'),key="strategy")
+strgy = st.selectbox("STRATEGY LIST",('None','ABC', '44MA', 'BOLLINGER BAND','ATH','15 MIN BUY (ABC)','15 MIN SELL (ABC)','15 MIN BUY (44MA)','15 MIN SELL (44MA)','Trial'))
 st.write("selected",strgy)
-sc_list = st.selectbox("SCRIPT LIST",('None','Nifty 500', 'Large Cap', 'Mid Cap','Small Cap'),key="sc_list")
+sc_list = st.selectbox("SCRIPT LIST",('None','Nifty 500', 'Large Cap', 'Mid Cap','Small Cap'))
 st.write("selected",sc_list)
 
 #side bar
 st.sidebar.write(
     "Risk Analysis Calculator")
-r=st.sidebar.text_input('Risk',key="risk")
-ep=st.sidebar.text_input('Entry Price',key="ep")
-stop_l=st.sidebar.text_input('Stop Loss',key="stop_l")
+r=st.sidebar.text_input('Risk')
+ep=st.sidebar.text_input('Entry Price')
+stop_l=st.sidebar.text_input('Stop Loss')
 try:
-  sl=int(st.session_state.ep)-int(st.session_state.key.stop_l)
+  sl=int(ep)-int(stop_l)
   no_of_share=math.ceil(int(r)/sl)
   target1 = int(ep)+sl
   target2 = int(ep)+(sl*2)
@@ -69,7 +67,7 @@ try:
 except:
   pass
 if st.sidebar.button('Calculate'):
-  st.sidebar.text("Risk-- "+str(r)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(stop_l)+"\n"+"NO OF SHARES-- "+str(no_of_share)+"\n"+"TARGET 1:01 -- "+str(target1)+"\n"+"TARGET 1:02 -- "+str(target2)+"\n"+"TARGET 1:03 -- "+str(target3),key="RiskAna")
+  st.sidebar.text("Risk-- "+str(r)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(stop_l)+"\n"+"NO OF SHARES-- "+str(no_of_share)+"\n"+"TARGET 1:01 -- "+str(target1)+"\n"+"TARGET 1:02 -- "+str(target2)+"\n"+"TARGET 1:03 -- "+str(target3))
 
 
 
@@ -114,8 +112,8 @@ else:
     st.text("select some script")
         
 
-if(st.button("Start Screening",key="strat_btn")):
-    if st.session_state.strategy == "ABC":
+if(st.button("Start Screening")):
+    if strgy == "ABC":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -156,13 +154,13 @@ if(st.button("Start Screening",key="strat_btn")):
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
                                     fig.update_layout(width=1250,height=700) 
                                     fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
-                                    st.plotly_chart(fig,key="fig1")
+                                    st.plotly_chart(fig)
                                     if low_list[-1]>low_list[-2]:
                                         fin=low_list[-2]
                                     else:
                                         fin=low_list[-1]
                                     risk,ep,sl,nos,tg1,tg2=risk_ana(high_list[-1]+1,fin-1)          
-                                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2),key="txt1")
+                                    st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
                                 else:
                                     pass
     
@@ -178,7 +176,7 @@ if(st.button("Start Screening",key="strat_btn")):
                                             " LOW: "+str(round(list(d.Low)[-1],3))+" \n AS ON "+str(end.date()))
                                     fig.update_layout(width=1250,height=700)
                                     fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']}) 
-                                    st.plotly_chart(fig,key="fig2")
+                                    st.plotly_chart(fig)
                                     if low_list[-1]>low_list[-2]:
                                         fin=low_list[-2]
                                     else:
@@ -187,12 +185,12 @@ if(st.button("Start Screening",key="strat_btn")):
                                     st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2),key="txt2")
     
             except Exception as e:
-                st.exception(e)            
+                pass            
         my_bar.empty()
         st.balloons()    
         
     
-    elif st.session_state.strategy == "44MA":
+    elif strgy == "44MA":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -270,13 +268,13 @@ if(st.button("Start Screening",key="strat_btn")):
                 else:
                     pass
             except Exception as e:
-                st.exception(e)        
+                pass        
         my_bar.empty()
         st.balloons()    
     
         
 
-    elif st.session_state.strategy == "BOLLINGER BAND":
+    elif strgy == "BOLLINGER BAND":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -322,11 +320,11 @@ if(st.button("Start Screening",key="strat_btn")):
                 else:
                     pass
             except Exception as e:
-                st.exception(e)
+                pass
         my_bar.empty()
         st.balloons()
         
-    elif st.session_state.strategy == "ATH":
+    elif strgy == "ATH":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -342,11 +340,11 @@ if(st.button("Start Screening",key="strat_btn")):
                 if (hgh == list(y['Close'])[-1]) or (0<per_close and per_close<0.05): 
                     st.write('[{0}](https://in.tradingview.com/chart/YV59lPqR/?symbol=NSE%3A{0})'.format(i))
             except Exception as e:
-                st.exception(e)
+                pass
         my_bar.empty()
         st.balloons()    
     
-    elif st.session_state.strategy == "15 MIN BUY (ABC)":
+    elif strgy == "15 MIN BUY (ABC)":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -434,11 +432,11 @@ if(st.button("Start Screening",key="strat_btn")):
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
             except Exception as e:
-                st.exception(e)
+                pass
         my_bar.empty()
         st.balloons()    
 
-    elif st.session_state.strategy == "15 MIN SELL (ABC)":
+    elif strgy == "15 MIN SELL (ABC)":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -526,10 +524,10 @@ if(st.button("Start Screening",key="strat_btn")):
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(fin-1,last_high+1)         
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
             except Exception as e:
-                st.exception(e)
+                pass
         my_bar.empty()
         st.balloons()    
-    elif st.session_state.strategy == "15 MIN BUY (44MA)":
+    elif strgy == "15 MIN BUY (44MA)":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -609,11 +607,11 @@ if(st.button("Start Screening",key="strat_btn")):
                 else:
                     pass
             except Exception as e:
-                st.exception(e) 
+                pass 
         my_bar.empty()
         st.balloons()    
     
-    elif st.session_state.strategy == "15 MIN SELL (44MA)":
+    elif strgy == "15 MIN SELL (44MA)":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
@@ -689,11 +687,11 @@ if(st.button("Start Screening",key="strat_btn")):
                 else:
                     pass
             except Exception as e:
-                st.exception(e)
+                pass
                     
         my_bar.empty()
         st.balloons()
-    elif st.session_state.strategy == "Trial":
+    elif strgy == "Trial":
         j=0
         my_bar = st.progress(0)
         for i in final_list:
