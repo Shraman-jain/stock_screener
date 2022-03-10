@@ -9,6 +9,7 @@ import pandas_datareader.data as pdr
 import math
 yf.pdr_override()
 
+"session state",(st.session_state)
 
 def get_sma(prices,rate):
   return prices.rolling(rate).mean()
