@@ -1,4 +1,12 @@
 import streamlit as st
+import pandas as pd
+import numpy as np
+from plotly import graph_objs as go
+import matplotlib.pyplot as plt
+import datetime as dt
+import yfinance as yf
+import pandas_datareader.data as pdr
+import math
 
 st.session_state
 st.title('Cal')
@@ -16,9 +24,17 @@ try:
     if incr:
         for i in large_list:
             st.write(i)
+            sym="{0}.NS".format(i)
+            d = pdr.get_data_yahoo(sym,period="1w",interval='1d')
+            d = d.reset_index()
+            st.dataframe(d)
 
     if dec:
         for i in mid_list:
             st.write(i)
+            sym="{0}.NS".format(i)
+            d = pdr.get_data_yahoo(sym,period="1w",interval='1d')
+            d = d.reset_index()
+            st.dataframe(d)
 except Exception as e:
     st.exception(e)
