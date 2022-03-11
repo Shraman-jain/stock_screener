@@ -1,3 +1,4 @@
+"""
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -38,3 +39,4 @@ try:
             st.dataframe(st.session_state.d1)
 except Exception as e:
     st.exception(e)
+"""
