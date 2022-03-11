@@ -120,7 +120,7 @@ if "load_state" not in st.session_state:
 if (strt) or st.session_state.load_state :
     if strt:
       st.session_state.load_state = True
-    if !strt:
+    if strt==False:
       st.session_state.load_state = False
     if strgy == "ABC":
         j=0
