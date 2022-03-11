@@ -111,7 +111,7 @@ elif sc_list == "Small Cap":
 else:
     st.text("select some script")
         
-col1, col2, col3 = st.beta_columns(3)
+col1, col2, col3 = st.columns(3)
 
 with col1:
     strt=st.button("Start Screening")
@@ -535,7 +535,7 @@ if(strt):
         my_bar = st.progress(0)
         data_list=""
         fileName="{}--{}.txt".format(strgy,end)
-        for i in final_list:
+        for i in final_list[:15]:
             j+=1
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
