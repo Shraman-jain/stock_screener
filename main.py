@@ -616,8 +616,8 @@ if(st.button("Start Screening")):
             except Exception as e:
                 pass 
         my_bar.empty()
-        dataFrame = pd.DataFarme.from_dict(data_list)
-        st.dataframe(dataFrame)
+        data_table = pd.DataFrame.from_dict(data_list)
+        st.dataframe(data_table)
         st.balloons() 
         """st.download_button(
           label="Download data as txt",
