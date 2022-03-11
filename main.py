@@ -111,17 +111,11 @@ elif sc_list == "Small Cap":
 else:
     st.text("select some script")
         
-col1, col2, col3 = st.columns([1,3,2])
+col1, col2, col3 = st.columns(3)
 
 with col1:
     strt=st.button("Start Screening")
-if "load_state" not in st.session_state:
-     st.session_state.load_state = False
-if (strt) or st.session_state.load_state :
-    if strt:
-      st.session_state.load_state = True
-    if strt==False:
-      st.session_state.load_state = False
+if (strt):
     if strgy == "ABC":
         j=0
         my_bar = st.progress(0)
