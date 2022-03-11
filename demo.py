@@ -23,15 +23,15 @@ st.session_state.large_list = ['RELIANCE', 'TCS', 'HDFCBANK', 'INFY', 'HINDUNILV
 
 try:
     if(st.button("Start Screening",key="str_btn")):
-        for i in st.session_state.mid_list:
-            st.session_state.sym="{0}.NS".format(i)
+        for st.session_state.i in st.session_state.mid_list:
+            st.session_state.sym="{0}.NS".format(st.session_state.i)
             st.session_state.d = pdr.get_data_yahoo(st.session_state.sym,period="max",interval='1d')
             st.session_state.d = st.session_state.d.reset_index()
             st.write(st.session_state.sym)        
             st.dataframe(st.session_state.d)
     if(st.button("S",key="str_btn_2")):
-        for j in st.session_state.large_list:
-            st.session_state.sym1="{0}.NS".format(j)
+        for st.session_state.j in st.session_state.large_list:
+            st.session_state.sym1="{0}.NS".format(st.session_state.j)
             st.session_state.d1 = pdr.get_data_yahoo(st.session_state.sym1,period="max",interval='1d')
             st.session_state.d1 = st.session_state.d1.reset_index()
             st.write(st.session_state.sym1)        
