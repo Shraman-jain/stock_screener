@@ -530,7 +530,7 @@ if(st.button("Start Screening")):
     elif strgy == "15 MIN BUY (44MA)":
         j,k=0,0
         my_bar = st.progress(0)
-        data_list={}
+        data_list=""
         for i in large_list[:15]:
             j+=1
             percent_complete=j/len(final_list)
@@ -579,7 +579,8 @@ if(st.button("Start Screening")):
                                     fin=last_low
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
-                                data_list[k]=[{"Stock Number":[k],"Stock Name":[i],"Entry Price":[ep],"Stop Loss":[sl],"No of Share":[nos],"TARGET 1:01":[tg1],"TARGET 1:02":[tg2]}]
+                                data_list+=str({"Stock Number":[k],"Stock Name":[i],"Entry Price":[ep],"Stop Loss":[sl],"No of Share":[nos],"TARGET 1:01":[tg1],"TARGET 1:02":[tg2]})
+                                data_list+="\n"
                                 k+=1
                                 
                         
@@ -604,7 +605,8 @@ if(st.button("Start Screening")):
                                     fin=last_low
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
-                                data_list[k]=[{"Stock Number":[k],"Stock Name":[i],"Entry Price":[ep],"Stop Loss":[sl],"No of Share":[nos],"TARGET 1:01":[tg1],"TARGET 1:02":[tg2]}]
+                                data_list+=str({"Stock Number":[k],"Stock Name":[i],"Entry Price":[ep],"Stop Loss":[sl],"No of Share":[nos],"TARGET 1:01":[tg1],"TARGET 1:02":[tg2]})
+                                data_list+="\n"
                                 k+=1
                                 
                         else:
@@ -618,14 +620,6 @@ if(st.button("Start Screening")):
         my_bar.empty()
         st.write(data_list)
         st.balloons()
-        csv = pd.DataFrame(data_list)
-
-        st.download_button(
-             label="Download data as CSV",
-             data=csv,
-             file_name='large_df.csv',
-             mime='text/csv',
-         )
         st.download_button('Download some text', str(data_list))
     
     elif strgy == "15 MIN SELL (44MA)":
