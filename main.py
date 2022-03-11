@@ -118,7 +118,10 @@ with col1:
 if "load_state" not in st.session_state:
      st.session_state.load_state = False
 if (strt) or st.session_state.load_state :
-    st.session_state.load_state = True
+    if strt:
+      st.session_state.load_state = True
+    if !strt:
+      st.session_state.load_state = False
     if strgy == "ABC":
         j=0
         my_bar = st.progress(0)
