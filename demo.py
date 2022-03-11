@@ -22,4 +22,7 @@ mid_list = ['DEVYANI', 'INDIAMART', 'SUNTV', 'AJANTPHARM', 'SUMICHEM', 'L&TFH', 
 if(st.button("Start Screening",key="str_btn")):
     for i in mid_list:
         st.session_state.sym="{0}.NS".format(i)
-        st.write(st.session_state.sym)
+        st.session_state.d = pdr.get_data_yahoo(st.session_state.sym,period="max",interval='1d')
+        st.session_state.d = st.session_state.d.reset_index()
+                
+        st.dataframe(st.session_state.d)
