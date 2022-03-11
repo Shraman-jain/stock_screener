@@ -114,9 +114,11 @@ else:
 col1, col2, col3 = st.columns([1,3,2])
 
 with col1:
-    st.button("Start Screening")
-
-if (st.button("Start Screening")) :
+    strt=st.button("Start Screening")
+if "load_state" not in st.session_state:
+     st.session_state.load_state = False
+if (strt) or st.session_state.load_state :
+    st.session_state.load_state = True
     if strgy == "ABC":
         j=0
         my_bar = st.progress(0)
