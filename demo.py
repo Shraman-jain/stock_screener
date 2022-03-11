@@ -31,10 +31,10 @@ try:
             st.dataframe(st.session_state.d)
     if(st.button("S",key="str_btn_2")):
         for i in large_list:
-            st.session_state.sym="{0}.NS".format(i)
-            st.session_state.d = pdr.get_data_yahoo(st.session_state.sym,period="max",interval='1d')
-            st.session_state.d = st.session_state.d.reset_index()
-            st.write(st.session_state.sym)        
-            st.dataframe(st.session_state.d)
+            st.session_state.sym1="{0}.NS".format(i)
+            st.session_state.d1 = pdr.get_data_yahoo(st.session_state.sym1,period="max",interval='1d')
+            st.session_state.d1 = st.session_state.d1.reset_index()
+            st.write(st.session_state.sym1)        
+            st.dataframe(st.session_state.d1)
 except Exception as e:
     st.exception(e)
