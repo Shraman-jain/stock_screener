@@ -111,11 +111,14 @@ elif sc_list == "Small Cap":
 else:
     st.text("select some script")
         
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([1,3,2])
 
 with col1:
-    strt=st.button("Start Screening")
-if(strt):
+    st.button("Start Screening")
+if "load_state" not in st.session_state:
+     st.session_state.load_state = False
+if(st.button("Start Screening")) or st.session_state.load_state :
+    st.session_state.load_state = True
     if strgy == "ABC":
         j=0
         my_bar = st.progress(0)
@@ -624,7 +627,7 @@ if(strt):
         my_bar.empty()
         st.balloons()
         with col1:
-            st.download_button('Download some text', str(data_list),file_name=fileName)
+            st.download_button('Download Result', str(data_list),file_name=fileName)
     
     elif strgy == "15 MIN SELL (44MA)":
         j=0
