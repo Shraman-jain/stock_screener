@@ -578,15 +578,10 @@ if(st.button("Start Screening")):
                                 else:
                                     fin=last_low
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)
-                                datalist[k]={"Stock Number":k,
-                                "Stock Name":i,
-                                "Entry Price":ep,
-                                "Stop Loss":sl,
-                                "No of Share":nos,
-                                "TARGET 1:01":tg1,
-                                "TARGET 1:02":tg2}
-                                k+=1
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                data_list[k]={"Stock Number":k,"Stock Name":i,"Entry Price":ep,"Stop Loss":sl,"No of Share":nos,"TARGET 1:01":tg1,"TARGET 1:02":tg2}
+                                k+=1
+                                
                         
                         elif ((((0<=last_high-last_close)and(1>=last_high-last_close))and((last_close-last_open)*2 <=(last_open-last_low))) or 
                                 (((0<=last_high-last_open)and(1>=last_high-last_open))and((last_open-last_close)*2 <=(last_close-last_low)))):
@@ -608,15 +603,10 @@ if(st.button("Start Screening")):
                                 else:
                                     fin=last_low
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)
-                                datalist[k]={"Stock Number":k,
-                                "Stock Name":i,
-                                "Entry Price":ep,
-                                "Stop Loss":sl,
-                                "No of Share":nos,
-                                "TARGET 1:01":tg1,
-                                "TARGET 1:02":tg2}
-                                k+=1
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
+                                data_list[k]={"Stock Number":k,"Stock Name":i,"Entry Price":ep,"Stop Loss":sl,"No of Share":nos,"TARGET 1:01":tg1,"TARGET 1:02":tg2}
+                                k+=1
+                                
                         else:
                             pass
                     else:
