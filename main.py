@@ -530,7 +530,7 @@ if(st.button("Start Screening")):
     elif strgy == "15 MIN BUY (44MA)":
         j,k=0,0
         my_bar = st.progress(0)
-        data_list={}
+        data_list=[]
         for i in large_list[:15]:
             j+=1
             percent_complete=j/len(final_list)
