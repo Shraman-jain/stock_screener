@@ -616,14 +616,11 @@ if(st.button("Start Screening")):
             except Exception as e:
                 pass 
         my_bar.empty()
-        st.write(pd.DataFrame(data_list))
+        st.write(data_list)
         st.balloons() 
-        """st.download_button(
+        st.download_button(
           label="Download data as txt",
-          data=data_list,
-          file_name="15MIN.txt",
-          mime="text/csv",
-          )"""
+          )
     
     elif strgy == "15 MIN SELL (44MA)":
         j=0
