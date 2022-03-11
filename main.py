@@ -616,6 +616,7 @@ if(st.button("Start Screening")):
             except Exception as e:
                 pass 
         my_bar.empty()
+        st.write(data_list)
         st.balloons() 
         st.download_button(
           label="Download data as txt",
