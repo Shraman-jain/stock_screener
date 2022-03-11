@@ -531,7 +531,7 @@ if(st.button("Start Screening")):
         j,k=0,0
         my_bar = st.progress(0)
         data_list={}
-        for i in final_list:
+        for i in large_list[:20]:
             j+=1
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
