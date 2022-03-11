@@ -630,8 +630,7 @@ if(st.button("Start Screening")):
         st.download_button(
           label="Download data as txt",
           data=data_list,
-          file_name="15MIN"+str(end),
-          mime='text/csv',
+          file_name="15MIN"+str(end)
           )
     
     elif strgy == "15 MIN SELL (44MA)":
