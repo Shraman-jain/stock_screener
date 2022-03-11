@@ -111,7 +111,12 @@ elif sc_list == "Small Cap":
 else:
     st.text("select some script")
         
-
+st.download_button(
+     label="Download data as txt",
+     data="hello shraman",
+     file_name='large_df.txt',
+     mime='text/csv',
+ )
 if(st.button("Start Screening")):
     if strgy == "ABC":
         j=0
