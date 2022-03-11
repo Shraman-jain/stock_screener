@@ -21,6 +21,5 @@ mid_list = ['DEVYANI', 'INDIAMART', 'SUNTV', 'AJANTPHARM', 'SUMICHEM', 'L&TFH', 
 
 if(st.button("Start Screening",key="str_btn")):
     for i in st.session_state.mlist:
-        sym="{0}.NS".format(i)
-        s=(sym,key="symbol")
-        st.write(st.session_state.symbol)
+        st.session_state.sym="{0}.NS".format(i)
+        st.write(st.session_state.sym)
