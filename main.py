@@ -531,7 +531,7 @@ if(st.button("Start Screening")):
         j,k=0,0
         my_bar = st.progress(0)
         data_list={}
-        for i in large_list[:20]:
+        for i in large_list[:15]:
             j+=1
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
@@ -621,7 +621,7 @@ if(st.button("Start Screening")):
           label="Download data as txt",
           data=data_list,
           file_name="15MIN.txt",
-          mime="text/csv"
+          mime="text/csv",
           )
     
     elif strgy == "15 MIN SELL (44MA)":
