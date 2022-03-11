@@ -535,7 +535,7 @@ if (strt):
         my_bar = st.progress(0)
         data_list=""
         fileName="{}--{}.txt".format(strgy,end)
-        for i in final_list[:15]:
+        for i in final_list:
             j+=1
             percent_complete=j/len(final_list)
             my_bar.progress(percent_complete)    
