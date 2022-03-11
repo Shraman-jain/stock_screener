@@ -618,9 +618,8 @@ if(st.button("Start Screening")):
         my_bar.empty()
         st.write(data_list)
         st.balloons() 
-        st.download_button(
-          label="Download data as txt",
-          )
+        text_contents = '''This is some text'''
+        st.download_button('Download some text', text_contents)
     
     elif strgy == "15 MIN SELL (44MA)":
         j=0
