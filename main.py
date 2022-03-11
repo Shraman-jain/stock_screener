@@ -111,12 +111,7 @@ elif sc_list == "Small Cap":
 else:
     st.text("select some script")
         
-st.download_button(
-     label="Download data as txt",
-     data="hello shraman",
-     file_name='large_df.txt',
-     mime='text/csv',
- )
+
 if(st.button("Start Screening")):
     if strgy == "ABC":
         j=0
@@ -533,8 +528,9 @@ if(st.button("Start Screening")):
         my_bar.empty()
         st.balloons()    
     elif strgy == "15 MIN BUY (44MA)":
-        j=0
+        j,k=0,0
         my_bar = st.progress(0)
+        data_list={}
         for i in final_list:
             j+=1
             percent_complete=j/len(final_list)
@@ -582,6 +578,14 @@ if(st.button("Start Screening")):
                                 else:
                                     fin=last_low
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)
+                                datalist[k]={"Stock Number":k,
+                                "Stock Name":i,
+                                "Entry Price":ep,
+                                "Stop Loss":sl,
+                                "No of Share":nos,
+                                "TARGET 1:01":tg1,
+                                "TARGET 1:02":tg2}
+                                k+=1
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
                         
                         elif ((((0<=last_high-last_close)and(1>=last_high-last_close))and((last_close-last_open)*2 <=(last_open-last_low))) or 
@@ -604,6 +608,14 @@ if(st.button("Start Screening")):
                                 else:
                                     fin=last_low
                                 risk,ep,sl,nos,tg1,tg2=risk_ana(last_high+1,fin-1)
+                                datalist[k]={"Stock Number":k,
+                                "Stock Name":i,
+                                "Entry Price":ep,
+                                "Stop Loss":sl,
+                                "No of Share":nos,
+                                "TARGET 1:01":tg1,
+                                "TARGET 1:02":tg2}
+                                k+=1
                                 st.text("Risk-- "+str(risk)+"\n"+"ENTRY PRICE-- "+str(ep)+"\n"+"Stop Loss-- "+str(sl)+"\n"+"NO OF SHARES-- "+str(nos)+"\n"+"TARGET 1:01 -- "+str(tg1)+"\n"+"TARGET 1:02 -- "+str(tg2))
                         else:
                             pass
@@ -614,11 +626,18 @@ if(st.button("Start Screening")):
             except Exception as e:
                 pass 
         my_bar.empty()
-        st.balloons()    
+        st.balloons() 
+        st.download_button(
+          label="Download data as txt",
+          data=data_list,
+          file_name="15MIN"+str(end),
+          mime='text/csv',
+          )
     
     elif strgy == "15 MIN SELL (44MA)":
         j=0
         my_bar = st.progress(0)
+        
         for i in final_list:
             j+=1
             percent_complete=j/len(final_list)
@@ -696,6 +715,7 @@ if(st.button("Start Screening")):
                     
         my_bar.empty()
         st.balloons()
+        
     elif strgy == "Trial":
         j=0
         my_bar = st.progress(0)
