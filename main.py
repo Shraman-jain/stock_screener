@@ -730,18 +730,16 @@ if (strt):
                 date_list = list(y.Date)
                 if ma_list_44[-1]>ma_list_44[-100] and ma_list_44[-1]>ma_list_44[-50] and ma_list_44[-1]>ma_list_44[-25]and ma_list_44[-1]>ma_list_44[-10]:
                     if close_list[-1] > open_list [-1] :
-                        if (-5< (low_list[-1] - ma_list_44[-1]) and (low_list[-1] - ma_list_44[-1])<20) or (-5< (close_list[-1] - ma_list_44[-1]) and (close_list[-1] - ma_list_44[-1])<20):
-                            st.write((close_list[-1] - ma_list_44[-1]))
-                            set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
-                            set2 = { 'x': date_list[-100:], 'y': ma50[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'blue' },'name': 'MA 50 periods','hoverinfo':'skip'}
-                            set3 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
-                            data = [set1, set2,set3]
-                            fig = go.Figure(data=data)
-                            fig.update_layout(title_text=i +" CLOSE: "+str(round(list(y.Close)[-1],3))+" OPEN: "+str(round(list(y.Open)[-1],3))+" HIGH: "+str(round(list(y.High)[-1],3))+
-                            " LOW: "+str(round(list(y.Low)[-1],3))+" \n AS ON "+str(end.date()))
-                            fig.update_layout(width=1250,height=700) 
-                            fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
-                            st.plotly_chart(fig)
+                        set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
+                        set2 = { 'x': date_list[-100:], 'y': ma50[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'blue' },'name': 'MA 50 periods','hoverinfo':'skip'}
+                        set3 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods','hoverinfo':'skip'}
+                        data = [set1, set2,set3]
+                        fig = go.Figure(data=data)
+                        fig.update_layout(title_text=i +" CLOSE: "+str(round(list(y.Close)[-1],3))+" OPEN: "+str(round(list(y.Open)[-1],3))+" HIGH: "+str(round(list(y.High)[-1],3))+
+                        " LOW: "+str(round(list(y.Low)[-1],3))+" \n AS ON "+str(end.date()))
+                        fig.update_layout(width=1250,height=700) 
+                        fig.show(config={'modeBarButtonsToAdd':['drawline','eraseshape']})
+                        st.plotly_chart(fig)
                 else:
                     pass    
             except Exception as e:
