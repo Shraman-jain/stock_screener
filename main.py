@@ -731,7 +731,7 @@ if (strt):
                 if ma_list_44[-1]>ma_list_44[-100] and ma_list_44[-1]>ma_list_44[-50] and ma_list_44[-1]>ma_list_44[-25]and ma_list_44[-1]>ma_list_44[-10]:
                     if close_list[-1] > open_list [-1] :
                         if -5< (close_list[-1] - ma_list_44[-1]) and (close_list[-1] - ma_list_44[-1])>10:
-                            st.write("---*YES*---")
+                            st.write((close_list[-1] - ma_list_44[-1]))
                         set1 = { 'x': date_list[-100:], 'open': open_list[-100:], 'close': close_list[-100:], 'high': high_list[-100:], 'low': low_list[-100:], 'type': 'candlestick','name' : 'price'}
                         set2 = { 'x': date_list[-100:], 'y': ma50[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'blue' },'name': 'MA 50 periods','hoverinfo':'skip'}
                         set3 = { 'x': date_list[-100:], 'y': ma44[-100:], 'type': 'scatter', 'mode': 'lines', 'line': { 'width': 1, 'color': 'black' },'name': 'MA 44 periods'}
